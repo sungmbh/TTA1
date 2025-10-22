@@ -3,338 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TTA CES Physical Bootcamp - November 4, 2025</title>
+    <title>CES Bootcamp Mentor Guide - November 4, 2025</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
         }
-        
+
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px;
+            padding: 40px 30px;
             text-align: center;
         }
-        
+
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 32px;
+            margin-bottom: 12px;
             font-weight: 700;
         }
-        
+
         .header p {
-            font-size: 1.2em;
             opacity: 0.95;
+            font-size: 18px;
+            font-weight: 500;
         }
-        
+
         .tabs {
             display: flex;
             background: #f8f9fa;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid #dee2e6;
             overflow-x: auto;
         }
-        
-        .tab {
-            padding: 18px 30px;
-            cursor: pointer;
-            border: none;
+
+        .tab-button {
+            flex: 1;
+            min-width: 200px;
+            padding: 18px 20px;
             background: none;
-            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
             font-weight: 600;
-            color: #666;
+            color: #6c757d;
             transition: all 0.3s;
-            white-space: nowrap;
+            position: relative;
         }
-        
-        .tab:hover {
+
+        .tab-button:hover {
             background: #e9ecef;
-            color: #667eea;
+            color: #495057;
         }
-        
-        .tab.active {
+
+        .tab-button.active {
+            color: #667eea;
             background: white;
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
         }
-        
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #667eea;
+        }
+
         .tab-content {
             display: none;
             padding: 40px;
             animation: fadeIn 0.4s;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        .stat-grid {
+
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin: 30px 0;
+            margin-bottom: 30px;
         }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .stat-number {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding: 20px 20px 20px 60px;
-            margin: 20px 0;
+
+        .info-card {
             background: #f8f9fa;
+            padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #667eea;
         }
-        
-        .timeline-time {
-            position: absolute;
-            left: -120px;
-            top: 20px;
-            background: #667eea;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-        
-        .timeline-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .timeline-desc {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .mentor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .mentor-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 25px;
-            transition: all 0.3s;
-        }
-        
-        .mentor-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
-            transform: translateY(-5px);
-        }
-        
-        .mentor-name {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #333;
+
+        .info-card h3 {
+            font-size: 14px;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
-        
-        .mentor-company {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 12px;
+
+        .info-card p {
+            color: #495057;
+            line-height: 1.6;
         }
-        
-        .mentor-expertise {
-            color: #666;
-            font-size: 0.95em;
-            line-height: 1.5;
+
+        .section {
+            margin-bottom: 30px;
         }
-        
-        .workshop-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 25px 0;
+
+        .section h2 {
+            font-size: 22px;
+            color: #212529;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .objective-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 25px;
+            border-radius: 10px;
             border-left: 5px solid #667eea;
-        }
-        
-        .workshop-title {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 15px;
-        }
-        
-        .workshop-meta {
-            display: flex;
-            gap: 30px;
             margin-bottom: 20px;
-            flex-wrap: wrap;
         }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #666;
-            font-weight: 600;
+
+        .objective-box p {
+            color: #495057;
+            line-height: 1.8;
+            font-size: 17px;
         }
-        
-        .workshop-content ul {
+
+        .outcomes-list {
             list-style: none;
-            padding-left: 0;
+            margin-top: 15px;
         }
-        
-        .workshop-content li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-            color: #555;
-        }
-        
-        .workshop-content li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: 700;
-        }
-        
-        .section-title {
-            font-size: 2em;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
-        }
-        
-        .objective-list {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-        
-        .objective-list li {
+
+        .outcomes-list li {
             padding: 15px;
-            margin: 10px 0;
-            background: white;
+            margin-bottom: 12px;
+            background: #f8f9fa;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #28a745;
+            line-height: 1.7;
         }
-        
-        table {
+
+        .outcomes-list li strong {
+            color: #28a745;
+            font-size: 16px;
+        }
+
+        .timeline-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-top: 15px;
             background: white;
-            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        th {
+
+        .timeline-table th {
             background: #667eea;
             color: white;
-            padding: 15px;
+            padding: 18px;
             text-align: left;
             font-weight: 600;
+            font-size: 15px;
         }
-        
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
+
+        .timeline-table td {
+            padding: 18px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+            line-height: 1.6;
         }
-        
-        tr:hover {
+
+        .timeline-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .timeline-table tr:nth-child(even) {
             background: #f8f9fa;
         }
-        
+
+        .time-cell {
+            font-weight: 600;
+            color: #667eea;
+            white-space: nowrap;
+            width: 100px;
+            font-size: 15px;
+        }
+
+        .teaching-points {
+            margin-top: 15px;
+        }
+
+        .teaching-points ul {
+            list-style: none;
+        }
+
+        .teaching-points li {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #fd7e14;
+            line-height: 1.7;
+        }
+
+        .teaching-points li::before {
+            content: "→";
+            color: #fd7e14;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
         .badge {
             display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            padding: 6px 14px;
+            background: #667eea;
+            color: white;
+            border-radius: 12px;
+            font-size: 13px;
             font-weight: 600;
-            margin: 5px;
+            margin-right: 8px;
         }
-        
-        .badge-challenger {
-            background: #e3f2fd;
-            color: #1976d2;
+
+        .badge.challengers {
+            background: #28a745;
         }
-        
-        .badge-dealmaker {
-            background: #fff3e0;
-            color: #f57c00;
+
+        .badge.dealmakers {
+            background: #dc3545;
         }
-        
+
+        .mentor-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 6px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .mentor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .mentor-card h3 {
+            color: #212529;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .workshop-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .detail-item strong {
+            display: block;
+            color: #667eea;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .mentor-names {
+            margin: 20px 0;
+        }
+
+        .mentor-names-label {
+            display: block;
+            margin-bottom: 12px;
+            color: #495057;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .mentor-name {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px 8px 5px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .mentor-name:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .rotation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .rotation-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid #667eea;
+        }
+
+        .rotation-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .search-box {
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 55px 18px 24px;
+            border: 2px solid #dee2e6;
+            border-radius: 35px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 20px;
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+
+        .alert-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #856404;
+        }
+
+        .alert-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            line-height: 1.8;
+            color: #856404;
+        }
+
+        .summary-box {
+            background: #d1ecf1;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #17a2b8;
+            margin-top: 40px;
+        }
+
+        .summary-box h2 {
+            color: #17a2b8;
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        .summary-box ul {
+            margin-left: 20px;
+            margin-top: 12px;
+            line-height: 2;
+            color: #0c5460;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .tabs, .search-box {
+                display: none;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+            .mentor-name {
+                pointer-events: none;
+            }
+        }
+
         @media (max-width: 768px) {
-            .timeline-time {
-                position: relative;
-                left: 0;
-                top: 0;
-                display: inline-block;
-                margin-bottom: 10px;
+            .container {
+                border-radius: 0;
             }
-            
-            .timeline-item {
-                padding-left: 20px;
+            .header {
+                padding: 30px 20px;
             }
-            
             .header h1 {
-                font-size: 1.8em;
+                font-size: 24px;
             }
-            
-            .stat-grid {
+            .tab-content {
+                padding: 25px 20px;
+            }
+            .info-grid {
                 grid-template-columns: 1fr;
+            }
+            .tab-button {
+                font-size: 12px;
+                padding: 15px 12px;
+                min-width: 150px;
             }
         }
     </style>
@@ -342,608 +473,833 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 TTA CES Physical Bootcamp</h1>
-            <p>Taiwan Tech Arena - CES 2026 Preparation Program</p>
-            <p style="margin-top: 10px; font-size: 1em;">November 4, 2025 | 8:30 AM - 5:10 PM</p>
+            <h1>🎯 CES Bootcamp Mentor Guide</h1>
+            <p>November 4, 2025 | Workshop Execution Guides</p>
         </div>
-        
+
         <div class="tabs">
-            <button class="tab active" onclick="openTab('overview')">Overview</button>
-            <button class="tab" onclick="openTab('timeline')">Timeline</button>
-            <button class="tab" onclick="openTab('workshops')">Workshops</button>
-            <button class="tab" onclick="openTab('mentors')">Mentors</button>
-            <button class="tab" onclick="openTab('logistics')">Logistics</button>
-            <button class="tab" onclick="openTab('objectives')">Objectives</button>
+            <button class="tab-button active" onclick="openTab(event, 'agenda')">
+                📋 Mentor Agenda<br><small>Find Your Workshop</small>
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'workshop1')">
+                Workshop 1<br><small>Fact Finding</small>
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'workshop2')">
+                Workshop 2<br><small>Floor Hunting</small>
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'workshop3')">
+                Workshop 3<br><small>Adaptive Pitching</small>
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'workshop4')">
+                Workshop 4<br><small>Meeting Skills</small>
+            </button>
         </div>
-        
-        <div id="overview" class="tab-content active">
-            <h2 class="section-title">Program Overview</h2>
-            
-            <div class="stat-grid">
-                <div class="stat-card">
-                    <div class="stat-number">56</div>
-                    <div class="stat-label">Participating Startups</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Expert Mentors</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8.5</div>
-                    <div class="stat-label">Hours of Training</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Specialized Workshops</div>
-                </div>
+
+        <!-- AGENDA TAB -->
+        <div id="agenda" class="tab-content active">
+            <h1 style="margin-bottom: 30px; color: #212529;">📋 Mentor Workshop Agenda</h1>
+
+            <div class="search-box">
+                <input type="text" id="mentorSearch" placeholder="🔍 Type your name to find your workshop..." onkeyup="searchMentor()">
+                <span class="search-icon">🔍</span>
             </div>
-            
-            <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin: 30px 0;">
-                <h3 style="font-size: 1.5em; margin-bottom: 15px; color: #333;">📊 Program Structure</h3>
-                <p style="line-height: 1.8; color: #555; font-size: 1.1em;">
-                    The TTA CES Physical Bootcamp is a comprehensive one-day intensive training program designed to prepare Taiwanese startups for success at CES 2026. The program features two specialized tracks tailored to different startup needs:
-                </p>
-                <div style="margin-top: 20px;">
-                    <div style="margin: 15px 0;">
-                        <span class="badge badge-challenger">Challengers Track</span>
-                        <span style="color: #666; margin-left: 10px;">30 startups focused on booth engagement and floor tactics</span>
-                    </div>
-                    <div style="margin: 15px 0;">
-                        <span class="badge badge-dealmaker">Deal Makers Track</span>
-                        <span style="color: #666; margin-left: 10px;">26 startups focused on adaptive pitching and negotiation</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="background: white; border: 2px solid #667eea; padding: 30px; border-radius: 12px; margin: 30px 0;">
-                <h3 style="font-size: 1.5em; margin-bottom: 15px; color: #667eea;">🎯 Key Program Components</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 12px 0; border-bottom: 1px solid #e0e0e0;">
-                        <strong style="color: #333;">Morning Sessions:</strong> Three keynote presentations + Interactive cold outreach workshop + Sales pitch training across 7 stations
-                    </li>
-                    <li style="padding: 12px 0; border-bottom: 1px solid #e0e0e0;">
-                        <strong style="color: #333;">Afternoon Workshops:</strong> Specialized track-based training with rotation system ensuring comprehensive coverage
-                    </li>
-                    <li style="padding: 12px 0;">
-                        <strong style="color: #333;">Closing Sessions:</strong> Cross-workshop sharing, mentor feedback panel, and actionable next steps
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div id="timeline" class="tab-content">
-            <h2 class="section-title">Complete Daily Timeline</h2>
-            
-            <div style="margin-left: 150px;">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-time">08:30 - 09:00</div>
-                        <div class="timeline-title">Check-in & Registration</div>
-                        <div class="timeline-desc">Badge distribution, materials packet, mentor briefing packets<br>📍 Location: Main Entrance</div>
-                    </div>
+
+            <div class="section">
+                <h2 style="color: #28a745;">🎯 CHALLENGERS Track</h2>
+                
+                <!-- Workshop 1 -->
+                <div class="mentor-card" data-mentor="wilson khoo luca di fiore deborah magid johnny yu">
+                    <h3>
+                        <span class="badge challengers">Challengers</span>
+                        Workshop 1: Fact Finding & Booth Engagement
+                    </h3>
                     
-                    <div class="timeline-item">
-                        <div class="timeline-time">09:00 - 09:10</div>
-                        <div class="timeline-title">Opening Remarks</div>
-                        <div class="timeline-desc">Day goals, track explanation, program flow overview<br>📍 Location: Main Hall</div>
+                    <div class="mentor-names">
+                        <strong class="mentor-names-label">👨‍🏫 Your Mentors:</strong>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop1')">Wilson Khoo</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop1')">Luca Di Fiore</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop1')">Deborah Magid</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop1')">Johnny Yu</a>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">09:10 - 09:20</div>
-                        <div class="timeline-title">Group Photo</div>
-                        <div class="timeline-desc">All 56 startups + 12 mentors + TTA staff + government representatives<br>📍 Location: Main Hall</div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">09:20 - 10:05</div>
-                        <div class="timeline-title">🎤 Three Keynote Sessions</div>
-                        <div class="timeline-desc">
-                            <strong>Keynote 1 (09:20-09:35):</strong> Deborah Magid - "Building Corporate Partnerships & Navigating US Government Funding"<br>
-                            <strong>Keynote 2 (09:35-09:50):</strong> Dr. Volker Kaese - "The CES Mindset: What You Are vs. Who You Are"<br>
-                            <strong>Keynote 3 (09:50-10:05):</strong> Volker Heistermann - "Sales with Generative AI"<br>
-                            📍 Location: Staircase Area
+
+                    <div class="workshop-details">
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 1</strong>
+                            13:00-14:30
+                        </div>
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 2</strong>
+                            14:50-16:20
+                        </div>
+                        <div class="detail-item">
+                            <strong>📍 Locations</strong>
+                            Staircase Area Left & Right
+                        </div>
+                        <div class="detail-item">
+                            <strong>👥 Capacity</strong>
+                            7-8 startups per room
                         </div>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">10:05 - 10:25</div>
-                        <div class="timeline-title">💡 Interactive Cold Outreach Workshop</div>
-                        <div class="timeline-desc">Facilitators: Mark Birsch & Volker Heistermann - Good vs. Bad examples, live demonstrations<br>📍 Location: Staircase Area</div>
+
+                    <div class="rotation-grid">
+                        <div class="rotation-card">
+                            <h4>📍 Staircase Area Left</h4>
+                            <p style="color: #495057; margin-top: 8px;">Wilson Khoo + Luca Di Fiore</p>
+                        </div>
+                        <div class="rotation-card">
+                            <h4>📍 Staircase Area Right</h4>
+                            <p style="color: #495057; margin-top: 8px;">Deborah Magid + Johnny Yu</p>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Workshop 2 -->
+                <div class="mentor-card" data-mentor="bruce bateman mark birch shafeen charania christopher balmaseda">
+                    <h3>
+                        <span class="badge challengers">Challengers</span>
+                        Workshop 2: CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-Up
+                    </h3>
                     
-                    <div class="timeline-item">
-                        <div class="timeline-time">10:30 - 12:00</div>
-                        <div class="timeline-title">🎯 Sales Pitch Training & Assessment</div>
-                        <div class="timeline-desc">7 stations with all 12 mentors deployed - Elevator pitch practice, sales deck refinement<br>📍 Location: Multiple rooms (TBD)</div>
+                    <div class="mentor-names">
+                        <strong class="mentor-names-label">👨‍🏫 Your Mentors:</strong>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop2')">Bruce Bateman</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop2')">Mark Birch</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop2')">Shafeen Charania</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop2')">Christopher Balmaseda</a>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">12:00 - 13:00</div>
-                        <div class="timeline-title">🍽 Lunch Break</div>
-                        <div class="timeline-desc">Networking lunch for startups | Mentors consolidate assessment scores<br>📍 Location: Lunch Area</div>
+
+                    <div class="workshop-details">
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 1</strong>
+                            13:00-14:30
+                        </div>
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 2</strong>
+                            14:50-16:20
+                        </div>
+                        <div class="detail-item">
+                            <strong>📍 Locations</strong>
+                            Room 418 & Kitchen Area
+                        </div>
+                        <div class="detail-item">
+                            <strong>👥 Capacity</strong>
+                            7-8 startups per room
+                        </div>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">13:00 - 14:30</div>
-                        <div class="timeline-title">🔧 Workshop Rotation 1</div>
-                        <div class="timeline-desc">Track-specific workshops (Challengers: Workshops 1 & 2 | Deal Makers: Workshops 3 & 4)</div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">14:30 - 14:50</div>
-                        <div class="timeline-title">Break</div>
-                        <div class="timeline-desc">20-minute transition between workshop rotations</div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">14:50 - 16:20</div>
-                        <div class="timeline-title">🔧 Workshop Rotation 2</div>
-                        <div class="timeline-desc">Groups rotate to experience the second workshop in their track</div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">16:20 - 16:50</div>
-                        <div class="timeline-title">📊 General Feedback & Share-outs</div>
-                        <div class="timeline-desc">Cross-room sharing, mentor panel, Q&A<br>📍 Location: Main Hall</div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-time">16:50 - 17:10</div>
-                        <div class="timeline-title">🎊 Closing Ceremony</div>
-                        <div class="timeline-desc">Next steps for CES preparation, final reminders<br>📍 Location: Main Hall</div>
+
+                    <div class="rotation-grid">
+                        <div class="rotation-card">
+                            <h4>📍 Room 418</h4>
+                            <p style="color: #495057; margin-top: 8px;">Bruce Bateman + Mark Birch</p>
+                        </div>
+                        <div class="rotation-card">
+                            <h4>📍 Kitchen Area</h4>
+                            <p style="color: #495057; margin-top: 8px;">Shafeen Charania + Christopher Balmaseda</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div id="workshops" class="tab-content">
-            <h2 class="section-title">Workshop Details</h2>
-            
-            <h3 style="font-size: 1.8em; color: #1976d2; margin: 30px 0 20px 0;">📘 Challengers Track (30 Startups)</h3>
-            
-            <div class="workshop-card">
-                <div class="workshop-title">Workshop 1: Fact Finding & Booth Engagement</div>
-                <div class="workshop-meta">
-                    <div class="meta-item">⏱ Duration: 90 minutes</div>
-                    <div class="meta-item">👥 2 Groups (7-8 startups each)</div>
-                    <div class="meta-item">📍 Staircase Area Left & Right</div>
-                </div>
-                <div class="workshop-content">
-                    <strong>Mentors:</strong>
-                    <ul style="margin: 10px 0;">
-                        <li>Room Left: Wilson Khoo + Luca Di Fiore</li>
-                        <li>Room Right: Deborah Magid + Johnny Yu</li>
-                    </ul>
-                    <strong>Content:</strong>
-                    <ul>
-                        <li>Simulate booth interaction scenarios with mentors</li>
-                        <li>Fact-finding techniques and discovery questions</li>
-                        <li>10-second hooks practice</li>
-                        <li>Qualification and disqualification strategies</li>
-                        <li>Handling different buyer types (distracted, hostile, perfect, wrong person)</li>
-                        <li>Converting passerby to calendar booking</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="workshop-card">
-                <div class="workshop-title">Workshop 2: CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up</div>
-                <div class="workshop-meta">
-                    <div class="meta-item">⏱ Duration: 90 minutes</div>
-                    <div class="meta-item">👥 2 Groups (7-8 startups each)</div>
-                    <div class="meta-item">📍 Room 418 & Kitchen Area</div>
-                </div>
-                <div class="workshop-content">
-                    <strong>Mentors:</strong>
-                    <ul style="margin: 10px 0;">
-                        <li>Room 418: Bruce Bateman + Mark Birch</li>
-                        <li>Kitchen Area: Shafeen Charania + Christopher Balmaseda</li>
-                    </ul>
-                    <strong>Content:</strong>
-                    <ul>
-                        <li><strong>CES Floor Hunting (0-30 min):</strong> Target booth mapping, badge reading, route planning, booth-to-buyer strategies</li>
-                        <li><strong>Party Tactics (30-60 min):</strong> Getting invited to VIP events, executive approach techniques, mock party simulation</li>
-                        <li><strong>Post-Tradeshow Follow-up (60-90 min):</strong> 24-hour rule, cadence planning, CRM basics, multithreading, template creation</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3 style="font-size: 1.8em; color: #f57c00; margin: 40px 0 20px 0;">📙 Deal Makers Track (26 Startups)</h3>
-            
-            <div class="workshop-card">
-                <div class="workshop-title">Workshop 3: Adaptive Pitching</div>
-                <div class="workshop-meta">
-                    <div class="meta-item">⏱ Duration: 90 minutes</div>
-                    <div class="meta-item">👥 2 Groups (12-13 startups each)</div>
-                    <div class="meta-item">📍 Joint Lecture → Room 302 & 308</div>
-                </div>
-                <div class="workshop-content">
-                    <strong>Mentors:</strong>
-                    <ul style="margin: 10px 0;">
-                        <li>Joint Lecture (0-20 min): Ashley Hsueh + Dr. Volker Kaese (together)</li>
-                        <li>After Split: Ashley Hsueh (Room 302) | Dr. Volker Kaese (Room 308)</li>
-                    </ul>
-                    <strong>Content:</strong>
-                    <ul>
-                        <li>Pitching to different corporate positions (CEO, CFO, CTO, COO, Head of Innovation)</li>
-                        <li>Adapting message, tone, and emphasis based on stakeholder role</li>
-                        <li>Real-time pivoting techniques</li>
-                        <li>Reading cues to identify decision-maker type</li>
-                        <li>Mentor role-play with in-character feedback</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="workshop-card">
-                <div class="workshop-title">Workshop 4: Meeting Skills and Negotiation</div>
-                <div class="workshop-meta">
-                    <div class="meta-item">⏱ Duration: 90 minutes</div>
-                    <div class="meta-item">👥 2 Groups (12-13 startups each)</div>
-                    <div class="meta-item">📍 Room 301 & Counter Area</div>
-                </div>
-                <div class="workshop-content">
-                    <strong>Mentors:</strong>
-                    <ul style="margin: 10px 0;">
-                        <li>Room 301: Leland Lai (solo)</li>
-                        <li>Counter Area: Chander Kant (solo)</li>
-                    </ul>
-                    <strong>Content:</strong>
-                    <ul>
-                        <li>US business meeting protocols and expectations</li>
-                        <li>Negotiation fundamentals for enterprise deals</li>
-                        <li>Handling objections and pushback</li>
-                        <li>Pilot and partnership structuring</li>
-                        <li>Give-get framework (never concede without receiving)</li>
-                        <li>Risk reversal techniques</li>
-                        <li>Next-step locking and calendar commitments</li>
-                        <li>Simulated meeting scenarios: PoC discussion, partnership terms, distributor agreements</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div id="mentors" class="tab-content">
-            <h2 class="section-title">Expert Mentor Team (12 Mentors)</h2>
-            
-            <div class="mentor-grid">
-                <div class="mentor-card">
-                    <div class="mentor-name">Ashley Hsueh</div>
-                    <div class="mentor-company">Bain & Company</div>
-                    <div class="mentor-expertise">Corporate Strategy, Go-to-Market, M&A</div>
-                </div>
+
+            <div class="section" style="margin-top: 40px;">
+                <h2 style="color: #dc3545;">💼 DEAL MAKERS Track</h2>
                 
-                <div class="mentor-card">
-                    <div class="mentor-name">Bruce Bateman</div>
-                    <div class="mentor-company">Cold Electric</div>
-                    <div class="mentor-expertise">Deep-Tech Hardware, R&D Leadership, Energy/IoT</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Chander Kant</div>
-                    <div class="mentor-company">K Ventures</div>
-                    <div class="mentor-expertise">Serial Entrepreneurship (SaaS), M&A exits, Angel investing</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Christopher Balmaseda</div>
-                    <div class="mentor-company">Valtec (Valiant Technologies)</div>
-                    <div class="mentor-expertise">Cross-border venture building, Life science/biotech</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Deborah Magid</div>
-                    <div class="mentor-company">Independent VC Advisor</div>
-                    <div class="mentor-expertise">Corporate VC, Enterprise Software, Strategic Partnerships</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Dr. Volker Kaese</div>
-                    <div class="mentor-company">Ingenev Mobility</div>
-                    <div class="mentor-expertise">Corporate Innovation & Strategy, Automotive, Mobility</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Johnny Yu</div>
-                    <div class="mentor-company">Mosaic Venture Lab</div>
-                    <div class="mentor-expertise">Finance, Operations, Investment Strategy</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Leland Lai</div>
-                    <div class="mentor-company">phireGEN Advisory Group</div>
-                    <div class="mentor-expertise">Telecommunications, Mobile Tech, Go-to-Market</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Luca Di Fiore</div>
-                    <div class="mentor-company">ADATA Technology (XPG)</div>
-                    <div class="mentor-expertise">R&D/Product Management, Hardware Engineering, DFM</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Mark Birch</div>
-                    <div class="mentor-company">TribeROI</div>
-                    <div class="mentor-expertise">Developer Relations, Community Building, Cloud GTM</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Shafeen Charania</div>
-                    <div class="mentor-company">fluency</div>
-                    <div class="mentor-expertise">Strategy/Operations leader, COO/PM roles</div>
-                </div>
-                
-                <div class="mentor-card">
-                    <div class="mentor-name">Wilson (Yin-Le) Khoo</div>
-                    <div class="mentor-company">co-pace (Continental)</div>
-                    <div class="mentor-expertise">Corporate VC, Mobility, Strategic Partnerships</div>
-                </div>
-            </div>
-            
-            <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin-top: 40px;">
-                <h3 style="font-size: 1.5em; margin-bottom: 20px; color: #333;">📊 Mentor Deployment Schedule</h3>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Time Slot</th>
-                            <th>Activity</th>
-                            <th>Deployment</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>10:30-12:00</strong></td>
-                            <td>Sales Pitch Training</td>
-                            <td>All 12 mentors across 7 stations</td>
-                        </tr>
-                        <tr>
-                            <td><strong>13:00-16:20</strong></td>
-                            <td>Challenger Workshop 1</td>
-                            <td>Wilson Khoo, Luca Di Fiore, Deborah Magid, Johnny Yu</td>
-                        </tr>
-                        <tr>
-                            <td><strong>13:00-16:20</strong></td>
-                            <td>Challenger Workshop 2</td>
-                            <td>Bruce Bateman, Mark Birch, Shafeen Charania, Christopher Balmaseda</td>
-                        </tr>
-                        <tr>
-                            <td><strong>13:00-16:20</strong></td>
-                            <td>Deal Maker Workshop 3</td>
-                            <td>Ashley Hsueh, Dr. Volker Kaese</td>
-                        </tr>
-                        <tr>
-                            <td><strong>13:00-16:20</strong></td>
-                            <td>Deal Maker Workshop 4</td>
-                            <td>Leland Lai, Chander Kant</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div id="logistics" class="tab-content">
-            <h2 class="section-title">Logistics & Room Allocation</h2>
-            
-            <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin: 25px 0;">
-                <h3 style="font-size: 1.5em; margin-bottom: 20px; color: #333;">📍 Room Requirements</h3>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Location</th>
-                            <th>Time Slot</th>
-                            <th>Purpose</th>
-                            <th>Capacity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Main Hall</strong></td>
-                            <td>09:00-09:20, 16:20-17:10</td>
-                            <td>Opening, Group Photo, Closing Sessions</td>
-                            <td>All participants (70+)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Staircase Area</strong></td>
-                            <td>09:20-10:25</td>
-                            <td>Keynotes + Cold Outreach Workshop</td>
-                            <td>All 56 startups</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Multiple Rooms (TBD)</strong></td>
-                            <td>10:30-12:00</td>
-                            <td>7 Training Stations</td>
-                            <td>7-8 startups per room with screens</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Staircase Left & Right</strong></td>
-                            <td>13:00-16:20</td>
-                            <td>Challenger Workshop 1</td>
-                            <td>7-8 startups per room</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Room 418 & Kitchen Area</strong></td>
-                            <td>13:00-16:20</td>
-                            <td>Challenger Workshop 2</td>
-                            <td>7-8 startups per room</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Room 302 & 308</strong></td>
-                            <td>13:00-16:20</td>
-                            <td>Deal Maker Workshop 3</td>
-                            <td>12-13 startups per room</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Room 301 & Counter Area</strong></td>
-                            <td>13:00-16:20</td>
-                            <td>Deal Maker Workshop 4</td>
-                            <td>12-13 startups per room</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div style="background: white; border: 2px solid #667eea; padding: 30px; border-radius: 12px; margin: 25px 0;">
-                <h3 style="font-size: 1.5em; margin-bottom: 20px; color: #667eea;">🎒 Materials & Equipment Checklist</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                    <div>
-                        <h4 style="margin-bottom: 10px; color: #333;">📋 For Participants</h4>
-                        <ul style="color: #666; line-height: 2;">
-                            <li>Name badges</li>
-                            <li>Agenda packets</li>
-                            <li>Room maps</li>
-                            <li>Deliverable checklists</li>
+                <!-- Workshop 3 -->
+                <div class="mentor-card" data-mentor="ashley hsueh volker kaese">
+                    <h3>
+                        <span class="badge dealmakers">Deal Makers</span>
+                        Workshop 3: Adaptive Pitching
+                    </h3>
+                    
+                    <div class="mentor-names">
+                        <strong class="mentor-names-label">👨‍🏫 Your Mentors:</strong>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop3')">Ashley Hsueh</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop3')">Dr. Volker Kaese</a>
+                    </div>
+
+                    <div class="workshop-details">
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 1</strong>
+                            13:00-14:30
+                        </div>
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 2</strong>
+                            14:50-16:20
+                        </div>
+                        <div class="detail-item">
+                            <strong>📍 Phase 1</strong>
+                            Joint Lecture (0-20 min)
+                        </div>
+                        <div class="detail-item">
+                            <strong>👥 Capacity</strong>
+                            12-13 startups per room (Phase 2)
+                        </div>
+                    </div>
+
+                    <div class="alert-box">
+                        <strong>⚠️ Special Format:</strong> This workshop has 2 phases
+                        <ul>
+                            <li><strong>Phase 1 (0-20 min):</strong> Both mentors teach together in large room</li>
+                            <li><strong>Phase 2 (20-90 min):</strong> Split into separate rooms, each mentor runs solo</li>
                         </ul>
                     </div>
-                    <div>
-                        <h4 style="margin-bottom: 10px; color: #333;">👨‍🏫 For Mentors</h4>
-                        <ul style="color: #666; line-height: 2;">
-                            <li>Mentor briefing packets</li>
-                            <li>Scoring sheets</li>
-                            <li>Role-playing cards</li>
-                            <li>Assessment forms</li>
-                        </ul>
+
+                    <div class="rotation-grid">
+                        <div class="rotation-card">
+                            <h4>📍 Room 302 (Phase 2 only)</h4>
+                            <p style="color: #495057; margin-top: 8px;">Ashley Hsueh</p>
+                        </div>
+                        <div class="rotation-card">
+                            <h4>📍 Room 308 (Phase 2 only)</h4>
+                            <p style="color: #495057; margin-top: 8px;">Dr. Volker Kaese</p>
+                        </div>
                     </div>
-                    <div>
-                        <h4 style="margin-bottom: 10px; color: #333;">🖥 Equipment Needed</h4>
-                        <ul style="color: #666; line-height: 2;">
-                            <li>Screens for 7+ rooms</li>
-                            <li>Tables & chairs for simulations</li>
-                            <li>Audio system for keynotes</li>
-                            <li>Recording equipment (optional)</li>
-                        </ul>
+                </div>
+
+                <!-- Workshop 4 -->
+                <div class="mentor-card" data-mentor="leland lai chander kant">
+                    <h3>
+                        <span class="badge dealmakers">Deal Makers</span>
+                        Workshop 4: Meeting Skills and Negotiation
+                    </h3>
+                    
+                    <div class="mentor-names">
+                        <strong class="mentor-names-label">👨‍🏫 Your Mentors:</strong>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop4')">Leland Lai</a>
+                        <a class="mentor-name" onclick="goToWorkshop('workshop4')">Chander Kant</a>
+                    </div>
+
+                    <div class="workshop-details">
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 1</strong>
+                            13:00-14:30
+                        </div>
+                        <div class="detail-item">
+                            <strong>⏰ Rotation 2</strong>
+                            14:50-16:20
+                        </div>
+                        <div class="detail-item">
+                            <strong>📍 Locations</strong>
+                            Room 301 & Counter Area
+                        </div>
+                        <div class="detail-item">
+                            <strong>👥 Capacity</strong>
+                            12-13 startups per room
+                        </div>
+                    </div>
+
+                    <div class="rotation-grid">
+                        <div class="rotation-card">
+                            <h4>📍 Room 301</h4>
+                            <p style="color: #495057; margin-top: 8px;">Leland Lai</p>
+                        </div>
+                        <div class="rotation-card">
+                            <h4>📍 Counter Area</h4>
+                            <p style="color: #495057; margin-top: 8px;">Chander Kant</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div id="objectives" class="tab-content">
-            <h2 class="section-title">Program Objectives & Expected Outcomes</h2>
-            
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 12px; margin: 30px 0;">
-                <h3 style="font-size: 1.8em; margin-bottom: 20px;">🎯 Primary Objectives</h3>
-                <p style="font-size: 1.2em; line-height: 1.8; opacity: 0.95;">
-                    Prepare Taiwanese startups to maximize their CES 2026 experience through comprehensive training in sales, pitching, networking, and business development tactics specifically tailored for the US market and CES environment.
-                </p>
-            </div>
-            
-            <h3 style="font-size: 1.5em; margin: 30px 0 20px 0; color: #333;">Key Learning Outcomes</h3>
-            
-            <div class="objective-list">
+
+            <div class="summary-box">
+                <h2>📋 Materials Printing Summary</h2>
+                <p style="margin-bottom: 15px; color: #0c5460;"><strong>Total sheets to print: 124</strong></p>
                 <ul>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">🎤 Pitch Mastery</strong><br>
-                        <span style="color: #666;">Deliver compelling 30-second elevator pitches and 2-3 minute sales pitches adapted to different stakeholder types (CEO, CFO, CTO, COO, Innovation Heads)</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">🤝 Corporate Partnership Skills</strong><br>
-                        <span style="color: #666;">Understand how to frame solutions to de-risk innovation for large US corporations and navigate US government funding opportunities (SBIR/STTR programs)</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">📧 Cold Outreach Excellence</strong><br>
-                        <span style="color: #666;">Create effective LinkedIn profiles, cold emails, and websites that speak to American business culture and lead with "what you do" not "who you are"</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">🎪 Booth Engagement Tactics</strong><br>
-                        <span style="color: #666;">Master fact-finding techniques, 10-second hooks, qualification strategies, and converting passersby to calendar bookings</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">🗺 CES Floor Strategy</strong><br>
-                        <span style="color: #666;">Develop target booth mapping, route planning, badge reading techniques, and booth-to-buyer conversation strategies</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">🎉 Networking & Party Tactics</strong><br>
-                        <span style="color: #666;">Learn how to access VIP events, approach executives in social settings, read social cues, and maintain relationships</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">💼 Negotiation Fundamentals</strong><br>
-                        <span style="color: #666;">Master US business meeting protocols, give-get framework, handling objections, and structuring pilots/partnerships</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">📊 Follow-up Systems</strong><br>
-                        <span style="color: #666;">Implement 24-hour rule, 14/30/60/90-day cadence planning, CRM basics, and multithreading strategies</span>
-                    </li>
-                    <li>
-                        <strong style="color: #667eea; font-size: 1.1em;">🤖 AI-Powered Sales</strong><br>
-                        <span style="color: #666;">Utilize generative AI to support sales activities, outreach, and preparation for CES</span>
-                    </li>
+                    <li>Workshop 1 handout: 30 copies (1 page front/back)</li>
+                    <li>Workshop 2 handout: 30 copies (1 page front/back)</li>
+                    <li>Workshop 3 handout: 26 copies (1 page front/back)</li>
+                    <li>Workshop 4 handout: 26 copies (1 page front/back)</li>
+                    <li>Mentor briefing cards: 12 cards (4 workshops × 2-4 mentors)</li>
                 </ul>
             </div>
-            
-            <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin: 30px 0;">
-                <h3 style="font-size: 1.5em; margin-bottom: 20px; color: #333;">📈 Immediate Post-Bootcamp Actions</h3>
-                <table>
+        </div>
+
+        <!-- WORKSHOP 1 -->
+        <div id="workshop1" class="tab-content">
+            <h1 style="margin-bottom: 20px;">
+                <span class="badge challengers">Challengers</span>
+                Workshop 1: Fact Finding & Booth Engagement
+            </h1>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>👨‍🏫 Mentors</h3>
+                    <p><strong>Left:</strong> Wilson Khoo + Luca Di Fiore<br>
+                    <strong>Right:</strong> Deborah Magid + Johnny Yu</p>
+                </div>
+                <div class="info-card">
+                    <h3>⏰ Time</h3>
+                    <p>13:00-14:30 (Rotation 1)<br>14:50-16:20 (Rotation 2)</p>
+                </div>
+                <div class="info-card">
+                    <h3>📍 Locations</h3>
+                    <p>Staircase Area Left<br>Staircase Area Right</p>
+                </div>
+                <div class="info-card">
+                    <h3>👥 Startups</h3>
+                    <p>7-8 per room</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Objective</h2>
+                <div class="objective-box">
+                    <p>Teach Challengers to convert booth walk-by traffic into scheduled meetings by reading buyers, asking qualifying questions, and closing for calendar slots.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📚 Learning Outcomes</h2>
+                <ul class="outcomes-list">
+                    <li><strong>Observe</strong> – Identify high-value targets vs time-wasters within 10 seconds using badge type, body language, and approach angle</li>
+                    <li><strong>Ask</strong> – Deploy 3 discovery questions that reveal need, authority, budget, and timeline in under 60 seconds</li>
+                    <li><strong>Listen</strong> – Capture pain points and buying triggers to tailor 30-second pitch and close for meeting</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>⏱️ Your 90-Minute Flow</h2>
+                <table class="timeline-table">
                     <thead>
                         <tr>
-                            <th>Timeline</th>
-                            <th>Action Item</th>
-                            <th>Target</th>
+                            <th>Time</th>
+                            <th>What You Do</th>
+                            <th>What Startups Do</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Within 72 hours</strong></td>
-                            <td>Fix LinkedIn profile and cold email templates</td>
-                            <td>100% completion</td>
+                            <td class="time-cell">0-15 min</td>
+                            <td><strong>Mini-lecture:</strong> Teach Observe-Ask-Listen using CES examples; role-play bad vs good approach live with co-mentor</td>
+                            <td>Take notes on handout</td>
                         </tr>
                         <tr>
-                            <td><strong>By end of week</strong></td>
-                            <td>Start prospect outreach using templates</td>
-                            <td>20 emails sent</td>
+                            <td class="time-cell">15-20 min</td>
+                            <td>Set up mock booth (table, chairs); assign yourself 4 buyer personas from handout (distracted exec, technical gatekeeper, perfect fit, wrong person)</td>
+                            <td>Pair up: 1 pitcher, 1 observer</td>
                         </tr>
                         <tr>
-                            <td><strong>Within 2 weeks</strong></td>
-                            <td>Book pre-CES meetings using calendar links</td>
-                            <td>10+ meetings scheduled</td>
+                            <td class="time-cell">20-75 min</td>
+                            <td><strong>Live simulation (7-8 rounds × 8 min):</strong> Play buyer; startup intercepts, asks questions, pitches, handles objection, asks for meeting; you stay in character 5 min, then give 2-min feedback</td>
+                            <td>Each pitches once; observer notes what worked; all watch and learn</td>
                         </tr>
                         <tr>
-                            <td><strong>Ongoing</strong></td>
-                            <td>Refine 30-second pitch based on video review</td>
-                            <td>Continuous improvement</td>
+                            <td class="time-cell">75-85 min</td>
+                            <td><strong>Debrief:</strong> Highlight top 3 tactics that earned meetings + top 3 mistakes; create "wins board" on whiteboard</td>
+                            <td>Share 1 insight; commit to 1 behavior</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">85-90 min</td>
+                            <td>Co-create final checklist on handout with group input; take photo and share</td>
+                            <td>Add personal notes; save photo</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
-            <div style="background: white; border: 2px solid #28a745; padding: 30px; border-radius: 12px; margin: 30px 0;">
-                <h3 style="font-size: 1.5em; margin-bottom: 15px; color: #28a745;">✅ Success Metrics</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 2.5em; font-weight: 700; color: #28a745;">100%</div>
-                        <div style="color: #666;">Mentor assessment completion</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2.5em; font-weight: 700; color: #28a745;">90%+</div>
-                        <div style="color: #666;">Participant satisfaction rate</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2.5em; font-weight: 700; color: #28a745;">56</div>
-                        <div style="color: #666;">Improved pitch deliveries</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2.5em; font-weight: 700; color: #28a745;">80%+</div>
-                        <div style="color: #666;">Complete follow-up actions</div>
-                    </div>
+
+            <div class="section">
+                <h2>💡 Key Teaching Points (15-min Lecture)</h2>
+                <div class="teaching-points">
+                    <ul>
+                        <li><strong>Observe cues:</strong> Badge color (red = exhibitor, blue = press, black = VIP), eye contact, walking speed, who they're with</li>
+                        <li><strong>3 discovery questions:</strong> "What brings you to CES?" / "What's your biggest challenge with [problem area]?" / "Who in your org handles [solution category]?"</li>
+                        <li><strong>Listen for:</strong> Pain intensity, budget authority signals ("I decide" vs "I'll pass it along"), timeline urgency</li>
+                        <li><strong>Close:</strong> "Can we grab 15 minutes Thursday at 2pm to show you a quick demo?" (specific ask, not "let's stay in touch")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKSHOP 2 -->
+        <div id="workshop2" class="tab-content">
+            <h1 style="margin-bottom: 20px;">
+                <span class="badge challengers">Challengers</span>
+                Workshop 2: CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-Up
+            </h1>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>👨‍🏫 Mentors</h3>
+                    <p><strong>Room 418:</strong> Bruce Bateman + Mark Birch<br>
+                    <strong>Kitchen:</strong> Shafeen Charania + Christopher Balmaseda</p>
+                </div>
+                <div class="info-card">
+                    <h3>⏰ Time</h3>
+                    <p>13:00-14:30 (Rotation 1)<br>14:50-16:20 (Rotation 2)</p>
+                </div>
+                <div class="info-card">
+                    <h3>📍 Locations</h3>
+                    <p>Room 418<br>Kitchen Area</p>
+                </div>
+                <div class="info-card">
+                    <h3>👥 Startups</h3>
+                    <p>7-8 per room</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Objective</h2>
+                <div class="objective-box">
+                    <p>Teach Challengers to proactively hunt high-value targets on the show floor and at parties, then execute disciplined follow-up to convert interest into meetings.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📚 Learning Outcomes</h2>
+                <ul class="outcomes-list">
+                    <li><strong>Observe</strong> – Read show floor maps, badge types, and party social dynamics to prioritize targets and timing</li>
+                    <li><strong>Ask</strong> – Deploy lightweight qualifying questions at booths/parties that feel conversational, not transactional</li>
+                    <li><strong>Listen</strong> – Capture follow-up hooks (pain, project timelines, stakeholder names) to personalize 24-hour outreach and multi-touch cadence</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>⏱️ Your 90-Minute Flow</h2>
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>What You Do</th>
+                            <th>What Startups Do</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">0-10 min</td>
+                            <td><strong>Lecture 1: Floor hunting</strong> – Teach target booth mapping, badge reading, route planning, when to approach vs move on</td>
+                            <td>Take notes; review own target list</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10-30 min</td>
+                            <td><strong>Lecture 2: Party tactics</strong> – Teach how to get invited, approach execs socially, icebreakers, reading cues, exits, follow-up timing</td>
+                            <td>Take notes; share 1 networking fear</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">30-50 min</td>
+                            <td><strong>Mock party sim:</strong> Set up standing "cocktail party" with music; play execs; startups rotate in, practice approach & small talk</td>
+                            <td>Each practices 2 approaches; observer records</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">50-70 min</td>
+                            <td><strong>Lecture 3: Follow-up systems</strong> – Teach 24-hr rule, 14/30/60/90-day cadence, CRM basics, multithreading, no-show recovery</td>
+                            <td>Take notes; open own CRM/notes app</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">70-85 min</td>
+                            <td><strong>Template workshop:</strong> Project sample follow-up email; startups call out improvements; each drafts their own 24-hr template live</td>
+                            <td>Draft email; get peer review; iterate</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">85-90 min</td>
+                            <td>Compile group checklist on handout; photograph and share</td>
+                            <td>Add personal notes; commit to 1 follow-up discipline</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>💡 Key Teaching Points</h2>
+                <div class="teaching-points">
+                    <h3 style="margin-top: 15px; margin-bottom: 10px; color: #495057;">Floor Hunting (0-10 min):</h3>
+                    <ul>
+                        <li>Prioritize booths: Target companies first, then competitor booths (learn + recruit), then tech partners</li>
+                        <li>Badge reading: Black/VIP badges = decision-makers; scan name + company before approaching</li>
+                        <li>Time blocking: High-traffic hours (10am-2pm) for volume; low-traffic (8-9am, 4-5pm) for quality conversations</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">Party Tactics (10-30 min):</h3>
+                    <ul>
+                        <li>Get invited: Ask booth contacts "Any evening events you're hosting?"; leverage mentor intros; monitor LinkedIn event posts</li>
+                        <li>Approach: Wait for natural break in conversation; use icebreaker: "How's CES treating you so far?"</li>
+                        <li>Exit gracefully: "I'll let you get back to your team—let's connect on LinkedIn and grab coffee tomorrow?"</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">Follow-up (50-70 min):</h3>
+                    <ul>
+                        <li><strong>24-hour rule:</strong> Email/LinkedIn within 24 hrs referencing specific conversation detail</li>
+                        <li><strong>Cadence:</strong> Day 1 (thank you + resource), Day 14 (case study), Day 30 (new insight), Day 60 (check-in), Day 90 (event invite)</li>
+                        <li><strong>CRM:</strong> Use Airtable/Notion/Google Sheets to track: Contact, Company, Pain mentioned, Next step, Follow-up date</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKSHOP 3 -->
+        <div id="workshop3" class="tab-content">
+            <h1 style="margin-bottom: 20px;">
+                <span class="badge dealmakers">Deal Makers</span>
+                Workshop 3: Adaptive Pitching
+            </h1>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>👨‍🏫 Mentors</h3>
+                    <p><strong>Room 302:</strong> Ashley Hsueh<br>
+                    <strong>Room 308:</strong> Dr. Volker Kaese</p>
+                </div>
+                <div class="info-card">
+                    <h3>⏰ Time</h3>
+                    <p>13:00-14:30 (Rotation 1)<br>14:50-16:20 (Rotation 2)</p>
+                </div>
+                <div class="info-card">
+                    <h3>📍 Format</h3>
+                    <p>Phase 1: Joint (0-20 min)<br>Phase 2: Split (20-90 min)</p>
+                </div>
+                <div class="info-card">
+                    <h3>👥 Startups</h3>
+                    <p>12-13 per room (Phase 2)</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Objective</h2>
+                <div class="objective-box">
+                    <p>Teach Deal Makers to diagnose buyer persona in real time and pivot pitch content, tone, and proof points to match what each stakeholder cares about.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📚 Learning Outcomes</h2>
+                <ul class="outcomes-list">
+                    <li><strong>Observe</strong> – Identify buyer persona (CEO/CFO/CTO/COO/Innovation) from title, questions, and body language within 30 seconds</li>
+                    <li><strong>Ask</strong> – Deploy 1-2 diagnostic questions early to confirm persona and uncover decision criteria</li>
+                    <li><strong>Listen</strong> – Catch keywords (ROI, risk, integration, roadmap) and pivot message mid-pitch to match persona priorities</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>⏱️ Your 90-Minute Flow</h2>
+                
+                <div class="alert-box" style="background: #d4edda; border-color: #28a745;">
+                    <strong style="color: #155724;">Phase 1 (0-20 min): Joint Lecture</strong>
+                    Both Ashley + V.K. teach together to all Deal Makers in large room
+                </div>
+
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th colspan="3">Phase 1: Joint Lecture Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">
+                                • Teach 5 buyer personas: CEO (market/ROI), CFO (cost/risk), CTO (integration/security), COO (logistics/stability), Innovation (differentiation/roadmap)<br>
+                                • Show how to diagnose from title + first question they ask<br>
+                                • Demonstrate real-time pivot: start pitch one way, "buyer" interrupts with persona-specific objection, pivot response
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box" style="background: #d1ecf1; border-color: #17a2b8; margin-top: 20px;">
+                    <strong style="color: #0c5460;">Phase 2 (20-90 min): Split Practice</strong>
+                    You run your assigned room solo
+                </div>
+
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>What You Do</th>
+                            <th>What Startups Do</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">20-25 min</td>
+                            <td>Explain format: "I'll play a persona without telling you; observe my cues, ask 1 diagnostic question, then adapt your pitch"</td>
+                            <td>Review handout; pair up (pitcher + observer)</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">25-80 min</td>
+                            <td><strong>Live rounds (12 startups × 4 min):</strong> Draw persona card (don't reveal); startup pitches 90 sec; you interrupt with in-character question/objection; startup must adapt; give 60-sec in-character feedback + 30-sec coaching</td>
+                            <td>Each pitches 2-3 times to different personas; observer notes pivots; all watch</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">80-90 min</td>
+                            <td>Highlight top 3 successful pivots + top 3 missed cues; co-create checklist</td>
+                            <td>Share 1 insight; commit to practicing 1 pivot</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>💡 Key Teaching Points (Phase 1, 0-20 min)</h2>
+                <div class="teaching-points">
+                    <h3 style="margin-top: 15px; margin-bottom: 10px; color: #495057;">5 Personas & What Each Cares About:</h3>
+                    <ul>
+                        <li><strong>CEO:</strong> Market opportunity, competitive advantage, ROI timeline, strategic fit</li>
+                        <li><strong>CFO:</strong> Total cost, payback period, risk mitigation, budget fit</li>
+                        <li><strong>CTO:</strong> Technical specs, integration complexity, security/compliance, scalability</li>
+                        <li><strong>COO:</strong> Implementation logistics, vendor stability, delivery reliability, change management</li>
+                        <li><strong>Head of Innovation:</strong> Differentiation vs competitors, future roadmap, co-development potential</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">How to Diagnose:</h3>
+                    <ul>
+                        <li>Title on badge/LinkedIn (obvious clue)</li>
+                        <li>First question they ask: "How much?" = CFO; "Does it integrate with our ERP?" = CTO; "What's your roadmap?" = Innovation</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">How to Pivot Mid-Pitch:</h3>
+                    <ul>
+                        <li><strong>CEO:</strong> Lead with market size + customer traction</li>
+                        <li><strong>CFO:</strong> Lead with cost savings + payback period</li>
+                        <li><strong>CTO:</strong> Lead with tech architecture + security certifications</li>
+                        <li><strong>COO:</strong> Lead with implementation speed + support SLA</li>
+                        <li><strong>Innovation:</strong> Lead with unique IP + partnership model</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORKSHOP 4 -->
+        <div id="workshop4" class="tab-content">
+            <h1 style="margin-bottom: 20px;">
+                <span class="badge dealmakers">Deal Makers</span>
+                Workshop 4: Meeting Skills and Negotiation
+            </h1>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>👨‍🏫 Mentors</h3>
+                    <p><strong>Room 301:</strong> Leland Lai<br>
+                    <strong>Counter Area:</strong> Chander Kant</p>
+                </div>
+                <div class="info-card">
+                    <h3>⏰ Time</h3>
+                    <p>13:00-14:30 (Rotation 1)<br>14:50-16:20 (Rotation 2)</p>
+                </div>
+                <div class="info-card">
+                    <h3>📍 Locations</h3>
+                    <p>Room 301<br>Counter Area</p>
+                </div>
+                <div class="info-card">
+                    <h3>👥 Startups</h3>
+                    <p>12-13 per room</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Objective</h2>
+                <div class="objective-box">
+                    <p>Teach Deal Makers to conduct effective US business meetings, handle objections, negotiate pilot/partnership terms, and lock specific next steps (not "let's stay in touch").</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📚 Learning Outcomes</h2>
+                <ul class="outcomes-list">
+                    <li><strong>Observe</strong> – Read buyer energy, objection patterns, and body language to gauge interest level and negotiation leverage</li>
+                    <li><strong>Ask</strong> – Deploy give-get questions ("If we do X, can you commit to Y?") and next-step locking questions to avoid vague follow-ups</li>
+                    <li><strong>Listen</strong> – Capture hidden stakeholders, budget cycles, and approval processes to structure realistic pilots and close for calendar</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>⏱️ Your 90-Minute Flow</h2>
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>What You Do</th>
+                            <th>What Startups Do</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">0-15 min</td>
+                            <td><strong>Mini-lecture:</strong> Teach US meeting protocols, give-get negotiation, objection handling, pilot structuring, next-step locking, calendar commitments</td>
+                            <td>Take notes; review own pilot ask</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15-20 min</td>
+                            <td>Explain format: "I'll play challenging buyer using scenario cards; conduct 5-7 min meeting, handle objections, close for next step"</td>
+                            <td>Review handout; prepare mental ask</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">20-80 min</td>
+                            <td><strong>Live sims (12 startups × 5 min meeting + 2 min feedback):</strong> Draw scenario (PoC, partnership, distributor, pilot, licensing, co-dev); play challenging buyer with objections ("too expensive," "need proof," "not priority"); startup handles + closes; give 2-min feedback</td>
+                            <td>Each conducts 1 meeting; observer notes give-gets; all watch</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">80-90 min</td>
+                            <td>Highlight top 3 negotiation moves that closed next steps + top 3 mistakes; co-create checklist</td>
+                            <td>Share 1 insight; commit to 1 closing behavior</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>💡 Key Teaching Points (0-15 min)</h2>
+                <div class="teaching-points">
+                    <h3 style="margin-top: 15px; margin-bottom: 10px; color: #495057;">US Meeting Protocols:</h3>
+                    <ul>
+                        <li>Start with agenda: "I thought we could cover X, Y, Z—does that work?"</li>
+                        <li>Be direct: Americans value efficiency; get to the point in first 2 minutes</li>
+                        <li>End with specific next step, not "let's stay in touch"</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">Give-Get Framework (never concede without receiving):</h3>
+                    <ul>
+                        <li>Buyer: "Can you lower the price?" → You: "If we adjust pricing, can you commit to a pilot start date?"</li>
+                        <li>Buyer: "We need more proof." → You: "If we provide a reference call with [customer], can we move to contract review?"</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">Objection Handling:</h3>
+                    <ul>
+                        <li>"Too expensive" → "Compared to what? Let me show you the ROI in 6 months..."</li>
+                        <li>"Need to see proof" → "Great—here's a case study. If this addresses your concerns, what's the next step?"</li>
+                        <li>"Not a priority this quarter" → "Understood. If I check back in 60 days, who else should I include in that conversation?"</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">Next-Step Locking:</h3>
+                    <ul>
+                        <li>❌ Bad: "Let's stay in touch." / "Think it over and let me know."</li>
+                        <li>✅ Good: "Can we schedule 30 minutes next Tuesday to review the proposal with your CTO?"</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px; margin-bottom: 10px; color: #495057;">Scenario Cards You'll Use:</h3>
+                    <ul>
+                        <li>1. PoC discussion</li>
+                        <li>2. Partnership terms negotiation</li>
+                        <li>3. Distributor agreement</li>
+                        <li>4. Enterprise pilot structuring</li>
+                        <li>5. Licensing deal</li>
+                        <li>6. Co-development agreement</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script>
-        function openTab(tabName) {
-            const contents = document.getElementsByClassName('tab-content');
-            const tabs = document.getElementsByClassName('tab');
-            
-            for (let content of contents) {
-                content.classList.remove('active');
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
             }
-            
-            for (let tab of tabs) {
-                tab.classList.remove('active');
+
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
             }
-            
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToWorkshop(workshopId) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            const workshopContent = document.getElementById(workshopId);
+            if (workshopContent) {
+                workshopContent.classList.add("active");
+            }
+
+            for (let i = 0; i < tabButtons.length; i++) {
+                const onclickAttr = tabButtons[i].getAttribute('onclick');
+                if (onclickAttr && onclickAttr.includes("'" + workshopId + "'")) {
+                    tabButtons[i].classList.add('active');
+                    break;
+                }
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function searchMentor() {
+            const input = document.getElementById('mentorSearch');
+            const filter = input.value.toLowerCase();
+            const mentorCards = document.querySelectorAll('.mentor-card');
+            let foundWorkshop = null;
+            let matchCount = 0;
+
+            mentorCards.forEach(card => {
+                const mentorNames = card.getAttribute('data-mentor');
+                if (mentorNames.includes(filter)) {
+                    card.style.display = '';
+                    if (filter.length > 0) {
+                        card.style.border = '3px solid #667eea';
+                        card.style.background = '#f0f4ff';
+                        matchCount++;
+                        
+                        if (!foundWorkshop) {
+                            const mentorNameButton = card.querySelector('.mentor-name');
+                            if (mentorNameButton) {
+                                const onclickAttr = mentorNameButton.getAttribute('onclick');
+                                const match = onclickAttr.match(/goToWorkshop\('([^']+)'\)/);
+                                if (match) {
+                                    foundWorkshop = match[1];
+                                }
+                            }
+                        }
+                    } else {
+                        card.style.border = '';
+                        card.style.background = 'white';
+                    }
+                } else {
+                    card.style.display = filter.length > 0 ? 'none' : '';
+                    card.style.border = '';
+                    card.style.background = 'white';
+                }
+            });
+
+            if (foundWorkshop && filter.length >= 3 && matchCount === 1) {
+                let goButton = document.getElementById('goToWorkshopButton');
+                if (!goButton) {
+                    goButton = document.createElement('button');
+                    goButton.id = 'goToWorkshopButton';
+                    goButton.style.cssText = `
+                        position: fixed;
+                        bottom: 40px;
+                        right: 40px;
+                        padding: 18px 35px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        border: none;
+                        border-radius: 35px;
+                        font-size: 17px;
+                        font-weight: 700;
+                        cursor: pointer;
+                        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+                        z-index: 1000;
+                        transition: all 0.3s;
+                    `;
+                    goButton.onmouseover = function() {
+                        this.style.transform = 'scale(1.08) translateY(-2px)';
+                        this.style.boxShadow = '0 15px 40px rgba(102, 126, 234, 0.7)';
+                    };
+                    goButton.onmouseout = function() {
+                        this.style.transform = 'scale(1) translateY(0)';
+                        this.style.boxShadow = '0 10px 30px rgba(102, 126, 234, 0.5)';
+                    };
+                    document.body.appendChild(goButton);
+                }
+                goButton.textContent = '➜ Go to My Workshop Details';
+                goButton.onclick = function() {
+                    goToWorkshop(foundWorkshop);
+                };
+                goButton.style.display = 'block';
+            } else {
+                const goButton = document.getElementById('goToWorkshopButton');
+                if (goButton) {
+                    goButton.style.display = 'none';
+                }
+            }
         }
     </script>
 </body>
