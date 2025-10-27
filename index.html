@@ -212,6 +212,10 @@
             <button class="tab-button" onclick="openTab(event, 'flow_outcomes')">
                 🧠 Flow & Core Outcomes
             </button>
+            <!-- NEW TAB ADDED HERE -->
+            <button class="tab-button" onclick="openTab(event, 'startup_materials')">
+                🚀 Startups: Review Materials
+            </button>
             <button class="tab-button" id="profile_tab_button" onclick="openTab(event, 'mentor_profile')" style="display: none;">
                 👤 Mentor Profile
             </button>
@@ -362,6 +366,50 @@
                 </div>
             </div>
         </div>
+
+        <!-- STARTUP MATERIALS TAB (NEW) -->
+        <div id="startup_materials" class="tab-content">
+            <h1 style="margin-bottom: 25px; color: #212529;">🚀 Startup Pre-Workshop Review Materials</h1>
+
+            <div class="section-flow">
+                <h2>Access the Full Data Sheet</h2>
+                <p style="font-size: 16px; margin-bottom: 20px; color: #555;">
+                    To prepare for the Morning Training Pods (10:30 - 12:00) and the Afternoon Workshops, please review the submitted materials for the startups you will be mentoring. All links and data points are centralized in the Google Sheet below.
+                </p>
+
+                <!-- FINAL CORRECTED LINK IS HERE -->
+                <a href="https://docs.google.com/spreadsheets/d/1b-xNHw2DuKUB2krIrxHGzxICi9lOpm4mkkQ4-5JJZGo/edit?gid=1276989460#gid=1276989460" target="_blank" class="folder-button" style="margin-bottom: 30px; background: linear-gradient(135deg, #20c997 0%, #10a37f 100%); box-shadow: 0 4px 15px rgba(32, 201, 151, 0.4);">
+                    <span>🔗</span> GO TO STARTUP DATA SHEET (Directly to "Startups attending CES" tab)
+                </a>
+                <p style="font-size: 14px; color: #777; margin-bottom: 30px;">
+                    <strong style="color: #10a37f;">NOTE:</strong> The link above directly opens the <strong>"Startups attending CES"</strong> tab.
+                </p>
+            </div>
+
+            <div class="section-flow">
+                <h2>Key Data Points Available in the "Startups attending CES" Tab</h2>
+                <div class="flow-grid">
+                    <div class="flow-card" style="border-left-color: #667eea;">
+                        <h4><span>📄</span> Pitch & Deck Links</h4>
+                        <ul>
+                            <li><strong>Original Pitch:</strong> Column F</li>
+                            <li><strong>Sales Deck File:</strong> Column I</li>
+                            <li><strong>Sales Deck Access Link:</strong> Column K</li>
+                            <li><strong>Target Customer List for CES:</strong> Column K (also in this column)</li>
+                        </ul>
+                    </div>
+                    <div class="flow-card" style="border-left-color: #ff4500;">
+                        <h4><span>📢</span> Messaging & Analysis</h4>
+                        <ul>
+                            <li><strong>30-Second Pitch:</strong> Column J</li>
+                            <li><strong>Company Description:</strong> Column O</li>
+                            <li><strong>Mosaic's Analysis:</strong> Column L (Review notes on submitted materials)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END NEW TAB -->
 
         <!-- MENTOR PROFILE TAB (Dynamically Loaded) -->
         <div id="mentor_profile" class="tab-content">
