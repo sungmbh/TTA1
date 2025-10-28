@@ -211,6 +211,40 @@
             font-weight: 600; transition: all 0.2s;
         }
         .mentor-name:hover { background: #667eea; color: white; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        /* ========================================================= */
+        /* MEDIA QUERIES FOR MOBILE/RESPONSIVENESS (iPhones, Androids) */
+        /* ========================================================= */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { border-radius: 10px; }
+            .header h1 { font-size: 28px; }
+            .header p { font-size: 16px; }
+            
+            /* Tabs stacking vertically for small screens */
+            .tabs { flex-direction: column; }
+            .tab-button { flex: none; min-width: 100%; border-bottom: 1px solid #e0e0e0; }
+            .tab-button.active::after { display: none; } /* Hide bottom bar on stacked tabs */
+            .tab-button.active { background: #e8e8f0; border-left: 5px solid #667eea; }
+
+            /* Content grids collapse to single column */
+            .flow-grid, .outcomes-container, .task-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            /* Agenda table adjustments */
+            .agenda-table th, .agenda-table td { padding: 10px; font-size: 14px; }
+            .agenda-table th:nth-child(3), .agenda-table td:nth-child(3) { display: none; } /* Hide location column on small screens */
+
+            /* Profile Bio stacking */
+            .profile-bio { flex-direction: column; gap: 15px; }
+            .bio-item { text-align: center; }
+
+            /* Reduce padding/margin */
+            .tab-content { padding: 20px 15px; }
+            .mentor-name { padding: 6px 10px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
