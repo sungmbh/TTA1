@@ -64,19 +64,19 @@
         .flow-card.rotation { border-left-color: #007bb6; }
         .flow-card h4 { font-size: 18px; margin-bottom: 10px; color: #333; display: flex; align-items: center; }
         
-        /* === CUSTOM STYLE FOR LINKED H4 TEXT === */
+        /* === CUSTOM STYLE FOR LINKED H4 TEXT (Startups Tab) === */
         .flow-card h4 a { 
             text-decoration: none; 
-            color: #007bb6; /* Blue color for hyperlink text */
+            color: #007bb6; 
             display: flex; 
             align-items: center;
         }
         .flow-card h4 a:hover { 
-            color: #667eea; /* Lighter blue on hover */
-            text-decoration: underline; /* Underline on hover */
+            color: #667eea; 
+            text-decoration: underline; 
             cursor: pointer;
         } 
-        /* ======================================= */
+        /* ====================================================== */
 
         .flow-card h4 span { font-size: 24px; margin-right: 10px; line-height: 1; }
         .flow-card p { font-size: 14px; color: #777; margin-bottom: 5px; }
@@ -212,6 +212,29 @@
         }
         .mentor-name:hover { background: #667eea; color: white; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
+        /* Mentor Roster Table Styles */
+        .mentor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .mentor-table th, .mentor-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 15px;
+        }
+        .mentor-table th {
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: 600;
+        }
+        .mentor-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .mentor-table a { color: #007bb6; text-decoration: none; font-weight: 600; }
+        .mentor-table a:hover { text-decoration: underline; color: #667eea; }
+
         /* ========================================================= */
         /* MEDIA QUERIES FOR MOBILE/RESPONSIVENESS (iPhones, Androids) */
         /* ========================================================= */
@@ -224,7 +247,7 @@
             /* Tabs stacking vertically for small screens */
             .tabs { flex-direction: column; }
             .tab-button { flex: none; min-width: 100%; border-bottom: 1px solid #e0e0e0; }
-            .tab-button.active::after { display: none; } /* Hide bottom bar on stacked tabs */
+            .tab-button.active::after { display: none; } 
             .tab-button.active { background: #e8e8f0; border-left: 5px solid #667eea; }
 
             /* Content grids collapse to single column */
@@ -244,6 +267,15 @@
             /* Reduce padding/margin */
             .tab-content { padding: 20px 15px; }
             .mentor-name { padding: 6px 10px; font-size: 14px; }
+            
+            /* Mentor Roster Table (Mobile Scrollable) */
+            .mentor-table { 
+                overflow-x: auto; 
+                display: block;
+                white-space: nowrap;
+            }
+            .mentor-table thead, .mentor-table tbody { display: table; width: 100%; table-layout: fixed; }
+            .mentor-table th, .mentor-table td { padding: 8px; font-size: 13px; }
         }
     </style>
 </head>
@@ -261,9 +293,12 @@
             <button class="tab-button" onclick="openTab(event, 'flow_outcomes')">
                 🧠 Flow & Core Outcomes
             </button>
-            <!-- NEW TAB ADDED HERE -->
             <button class="tab-button" onclick="openTab(event, 'startup_materials')">
                 🚀 Startups: Review Materials
+            </button>
+            <!-- NEW MENTOR ROSTER TAB ADDED -->
+            <button class="tab-button" onclick="openTab(event, 'mentor_roster')">
+                👥 Full Mentor Roster
             </button>
             <button class="tab-button" id="profile_tab_button" onclick="openTab(event, 'mentor_profile')" style="display: none;">
                 👤 Mentor Profile
@@ -470,6 +505,97 @@
         </div>
         <!-- END NEW TAB -->
 
+        <!-- MENTOR ROSTER TAB (UPDATED WITH NEW LINK) -->
+        <div id="mentor_roster" class="tab-content">
+            <h1 style="margin-bottom: 25px; color: #212529;">👥 Full Mentor Roster & Key Expertise</h1>
+            <p style="font-size: 16px; margin-bottom: 20px; color: #555;">
+                Familiarize yourself with the background and specialties of all mentors and keynote speakers attending the bootcamp.
+            </p>
+
+            <table class="mentor-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Mentor Name</th>
+                        <th style="width: 15%;">Current Company</th>
+                        <th style="width: 70%;">TITLE / KEY EXPERTISE / SPECIALTY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/ashleyhsueh/" target="_blank">Ashley Hsueh</a></td>
+                        <td>Bain & Company</td>
+                        <td>Management consultant; Technology & Cloud Services & Performance Improvement; M&A Strategy.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/deborah-magid-b5318/" target="_blank">Deborah Magid</a></td>
+                        <td>Independent VC Advisor</td>
+                        <td>Venture/Corporate Innovation Advisor; Corporate VC, Enterprise Software, Strategic Partnerships.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/volkerkaese/" target="_blank">Dr. Volker Kaese</a></td>
+                        <td>Ingenev Mobility</td>
+                        <td>CEO; Former Head of Innovation VW & Audi globally; Automotive Strategy & Development.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/shafeen/" target="_blank">Shafeen Charania</a></td>
+                        <td>fluency</td>
+                        <td>COO; Strategy/Operations Leader; ex-SmartGames Ltd.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/johnny-yu-21b36128/" target="_blank">Johnny Yu</a></td>
+                        <td>Mosaic Venture Lab</td>
+                        <td>Managing Director; Finance, Operations, Investment Strategy.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/chanderkant/" target="_blank">Chander Kant</a></td>
+                        <td>K Ventures</td>
+                        <td>CEO; Serial Entrepreneurship (SaaS), M&A exits, Angel investing.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/christopher-balmaseda/" target="_blank">Christopher Balmaseda</a></td>
+                        <td>Valtec</td>
+                        <td>Co-Founder & COO; Cross-border Venture Building, Life science/biotech.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/startupmark/" target="_blank">Mark Birch</a></td>
+                        <td>TribeROI</td>
+                        <td>Founder; Developer Relations, Community Building, Cloud GTM (ex-AWS).</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/khooyinle/" target="_blank">Wilson (Yin-Le) Khoo</a></td>
+                        <td>co-pace (Continental)</td>
+                        <td>Director & Head of co-pace APAC (ex-China); Corporate VC, Mobility, Strategic Partnerships.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/luca-di-fiore-7165921/" target="_blank">Luca Di Fiore</a></td>
+                        <td>ADATA Technology (XPG)</td>
+                        <td>Head of Products, Xtreme Performance Gear; R&D/Product Mgmt, Hardware Eng.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/brucewbateman/" target="_blank">Bruce Bateman</a></td>
+                        <td>Cold Electric</td>
+                        <td>Founder/Principal; Deep-Tech Hardware, R&D Leadership, Energy/IoT.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://tw.linkedin.com/in/lelandlai" target="_blank">Leland Lai</a></td>
+                        <td>phireGEN Advisory Group</td>
+                        <td>Managing Director; Telecommunications, Mobile Tech, Go-to-Market.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/joshua-fu/" target="_blank">Josh Fu</a></td>
+                        <td>Akohub; Creative Ventures Lab</td>
+                        <td>Co-Founder & CRO (Akohub); Founder (Creative Ventures Lab); E-commerce, Growth Strategy.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.linkedin.com/in/ken-huang-12638166/" target="_blank">Ken Huang</a></td>
+                        <td>Mosaic Venture Lab</td>
+                        <td>Deal Sourcing, Due Diligence, Portfolio Management.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END MENTOR ROSTER TAB -->
+
         <!-- MENTOR PROFILE TAB (Dynamically Loaded) -->
         <div id="mentor_profile" class="tab-content">
             <div class="profile-card">
@@ -516,7 +642,7 @@
             'w4': 'https://drive.google.com/drive/folders/1Joij6lDFEaKNxQ_nMDtGcU2u56qekWfr?usp=sharing',
         };
 
-        // Full Mentor Data Object (Based on PDF and Whiteboard)
+        // Full Mentor Data Object (Used for Dynamic Profile Loading)
         const mentorData = {
             'Ashley Hsueh': {
                 company: 'Bain & Company', expertise: 'Corporate Strategy, M&A', track: 'Deal Maker', w_code: 'w3',
@@ -582,7 +708,7 @@
                 company: 'fluency', expertise: 'Strategy/Operations Leader, COO/PM roles', track: 'Challenger', w_code: 'w2',
                 keynote: null,
                 morning_pod: { time: '10:30 - 12:00', room: 'Room 418', staff: 'Josh', focus: 'Sales Deck Review, Strategic Positioning' },
-                afternoon: { time: '13:00 - 14:30 & 14:50 - 16:20', room: 'Room 405', workshop: 'W2: CES Hunting, Party Tactics', co_mentor: 'Christopher Balmaseda', tasks: ['Deliver PPT on CES Floor Hunting & Party Tactics (Shafeen leads lecture)', 'Help lead Mock party simulation with music.', 'Teach Post-Tradeshow Follow-up systems (24hr rule, multi-touch cadence).'] }
+                afternoon: { time: '13:00 - 14:30 & 14:50 - 16:20', room: 'Room 405', workshop: 'W2: CES Hunting, Party Tactics', co_mentor: 'Christopher Balmaseda', tasks: ['Deliver PPT on CES Floor Hunting & Party Tactics (Shafeen leads lecture)', 'Help lead Mock party simulation with music.', 'Provide feedback on Post-Tradeshow Follow-up systems.'] }
             },
             'Wilson Khoo': {
                 company: 'co-pace (Continental)', expertise: 'Corporate VC, Mobility, Strategic Partnerships', track: 'Challenger', w_code: 'w1',
@@ -597,6 +723,38 @@
                 afternoon: null
             }
         };
+
+        // Complete Mentor Roster Data for the dedicated tab
+        const fullMentorRoster = [
+            { name: 'Ashley Hsueh', company: 'Bain & Company', expertise: 'Management consultant; Technology & Cloud Services & Performance Improvement; M&A Strategy.', linkedin: 'https://www.linkedin.com/in/ashleyhsueh/' },
+            { name: 'Deborah Magid', company: 'Independent VC Advisor', expertise: 'Venture/Corporate Innovation Advisor; Corporate VC, Enterprise Software, Strategic Partnerships.', linkedin: 'https://www.linkedin.com/in/deborah-magid-b5318/' },
+            { name: 'Dr. Volker Kaese', company: 'Ingenev Mobility', expertise: 'CEO; Former Head of Innovation VW & Audi globally; Automotive Strategy & Development.', linkedin: 'https://www.linkedin.com/in/volkerkaese/' },
+            { name: 'Shafeen Charania', company: 'fluency', expertise: 'COO; Strategy/Operations Leader; ex-SmartGames Ltd.', linkedin: 'https://www.linkedin.com/in/shafeen/' },
+            { name: 'Johnny Yu', company: 'Mosaic Venture Lab', expertise: 'Managing Director; Finance, Operations, Investment Strategy.', linkedin: 'https://www.linkedin.com/in/johnny-yu-21b36128/' },
+            { name: 'Chander Kant', company: 'K Ventures', expertise: 'CEO; Serial Entrepreneurship (SaaS), M&A exits, Angel investing.', linkedin: 'https://www.linkedin.com/in/chanderkant/' },
+            { name: 'Christopher Balmaseda', company: 'Valtec', expertise: 'Co-Founder & COO; Cross-border Venture Building, Life science/biotech.', linkedin: 'https://www.linkedin.com/in/christopher-balmaseda/' },
+            { name: 'Mark Birch', company: 'TribeROI', expertise: 'Founder; Developer Relations, Community Building, Cloud GTM (ex-AWS).', linkedin: 'https://www.linkedin.com/in/startupmark/' },
+            { name: 'Wilson (Yin-Le) Khoo', company: 'co-pace (Continental)', expertise: 'Director & Head of co-pace APAC (ex-China); Corporate VC, Mobility, Strategic Partnerships.', linkedin: 'https://www.linkedin.com/in/khooyinle/' },
+            { name: 'Luca Di Fiore', company: 'ADATA Technology (XPG)', expertise: 'Head of Products, Xtreme Performance Gear; R&D/Product Mgmt, Hardware Eng.', linkedin: 'https://www.linkedin.com/in/luca-di-fiore-7165921/' },
+            { name: 'Bruce Bateman', company: 'Cold Electric', expertise: 'Founder/Principal; Deep-Tech Hardware, R&D Leadership, Energy/IoT.', linkedin: 'https://www.linkedin.com/in/brucewbateman/' },
+            { name: 'Leland Lai', company: 'phireGEN Advisory Group', expertise: 'Managing Director; Telecommunications, Mobile Tech, Go-to-Market.', linkedin: 'https://tw.linkedin.com/in/lelandlai' },
+            { name: 'Josh Fu', company: 'Akohub; Creative Ventures Lab', expertise: 'Co-Founder & CRO (Akohub); Founder (Creative Ventures Lab); E-commerce, Growth Strategy.', linkedin: 'https://www.linkedin.com/in/joshua-fu/' },
+            { name: 'Ken Huang', company: 'Mosaic Venture Lab', expertise: 'Deal Sourcing, Due Diligence, Portfolio Management.', linkedin: 'https://www.linkedin.com/in/ken-huang-12638166/' }
+        ];
+
+        function populateMentorRosterTable() {
+            const tbody = document.querySelector('#mentor_roster .mentor-table tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = fullMentorRoster.map(mentor => `
+                <tr>
+                    <td>${mentor.linkedin ? `<a href="${mentor.linkedin}" target="_blank">${mentor.name}</a>` : mentor.name}</td>
+                    <td>${mentor.company}</td>
+                    <td>${mentor.expertise}</td>
+                </tr>
+            `).join('');
+        }
+
 
         function getFolderLink(code) {
             return folderLinks[code.toLowerCase()] || '#';
@@ -693,7 +851,11 @@
             } else if (tabName === 'agenda') {
                 const agendaBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('Main Agenda'));
                 if (agendaBtn) agendaBtn.classList.add('active');
+            } else if (tabName === 'mentor_roster') {
+                 const rosterBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('Full Mentor Roster'));
+                if (rosterBtn) rosterBtn.classList.add('active');
             }
+
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -720,6 +882,8 @@
                 }
             });
         }
+
+        document.addEventListener('DOMContentLoaded', populateMentorRosterTable);
     </script>
 </body>
 </html>
