@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -302,6 +303,64 @@
             border-left: 3px solid #667eea;
             padding-left: 10px;
         }
+
+        /* === NEW STYLES FOR ASSIGNMENTS TABLE === */
+        .assignment-search-box {
+            padding: 15px 20px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+        }
+        .assignment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .assignment-table th, .assignment-table td {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            font-size: 14px;
+        }
+        .assignment-table th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 700;
+        }
+        .assignment-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .session-am {
+            border-left: 4px solid #20c997; /* Green for Morning Pod */
+            font-weight: 600;
+        }
+        .session-pm {
+            border-left: 4px solid #007bb6; /* Blue for Afternoon Workshop */
+        }
+        .startup-name-link {
+            color: #667eea;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .startup-name-link:hover {
+            text-decoration: underline;
+        }
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #dc3545;
+            background: #f8d7da;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
         /* ========================================================= */
         /* MEDIA QUERIES FOR MOBILE/RESPONSIVENESS (iPhones, Androids) */
         /* ========================================================= */
@@ -335,29 +394,20 @@
             .tab-content { padding: 20px 15px; }
             .mentor-name { padding: 6px 10px; font-size: 14px; }
             
-            /* Mentor Roster Table (Mobile Scrollable) */
-            .mentor-table { 
+            /* Table Mobile Scrollable */
+            .mentor-table, .startup-feedback-table, .assignment-table { 
                 overflow-x: auto; 
                 display: block;
                 white-space: nowrap;
             }
-            .mentor-table thead, .mentor-table tbody { display: table; width: 100%; table-layout: fixed; }
-            .mentor-table th, .mentor-table td { padding: 8px; font-size: 13px; }
-            
-            /* Feedback Table Mobile */
-            .startup-feedback-table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
+            .mentor-table thead, .mentor-table tbody, .startup-feedback-table thead, .startup-feedback-table tbody, .assignment-table thead, .assignment-table tbody { 
+                display: table; 
+                width: 100%; 
+                table-layout: fixed; 
             }
-            .startup-feedback-table thead, .startup-feedback-table tbody, .startup-feedback-table tr {
-                display: table;
-                width: 100%;
-                table-layout: fixed;
-            }
-            .startup-feedback-table th, .startup-feedback-table td {
-                padding: 10px;
-                font-size: 12px;
+            .mentor-table th, .mentor-table td, .startup-feedback-table th, .startup-feedback-table td, .assignment-table th, .assignment-table td { 
+                padding: 8px; 
+                font-size: 13px; 
             }
         }
     </style>
@@ -379,7 +429,9 @@
             <button class="tab-button" onclick="openTab(event, 'startup_materials')">
                 🚀 Startups: Review Materials
             </button>
-            <!-- NEW MENTOR ROSTER TAB ADDED -->
+            <button class="tab-button" onclick="openTab(event, 'my_assignments')">
+                🔍 My Assignments
+            </button>
             <button class="tab-button" onclick="openTab(event, 'mentor_roster')">
                 👥 Full Mentor Roster
             </button>
@@ -890,6 +942,22 @@
         </div>
         <!-- END NEW TAB -->
 
+        <!-- MY ASSIGNMENTS TAB (NEW) -->
+        <div id="my_assignments" class="tab-content">
+            <h1 style="margin-bottom: 25px; color: #212529;">🔍 Find Your Startup Assignments</h1>
+            <p style="font-size: 16px; margin-bottom: 20px; color: #555;">
+                Type your full mentor name below to see the complete list of startups you are coaching during the Morning Pod (10:30-12:00) and the Afternoon Workshops (13:00-16:20).
+            </p>
+            <input type="text" id="mentor-search-input" class="assignment-search-box" placeholder="E.g., Dr. Volker Kaese, Bruce Bateman, Johnny Yu" onkeyup="filterAssignments()">
+            
+            <div id="assignments-results">
+                <div class="no-results">
+                    Please type your mentor name above to view your personalized schedule and startup assignments.
+                </div>
+            </div>
+        </div>
+        <!-- END MY ASSIGNMENTS TAB -->
+
         <!-- MENTOR ROSTER TAB (UPDATED WITH NEW LINK) -->
         <div id="mentor_roster" class="tab-content">
             <h1 style="margin-bottom: 25px; color: #212529;">👥 Full Mentor Roster & Key Expertise</h1>
@@ -1127,6 +1195,260 @@
             { name: 'Ken Huang', company: 'Mosaic Venture Lab', expertise: 'Deal Sourcing, Due Diligence, Portfolio Management.', linkedin: 'https://www.linkedin.com/in/ken-huang-12638166/' }
         ];
 
+        // --- NEW DATA STRUCTURE FOR ASSIGNMENTS TAB ---
+        // This object maps a mentor's name to an array of startups they are assigned to.
+        const mentorAssignments = {
+            "Ashley Hsueh": [
+                { name: "Ailicorn Inc", website: "https://ailicorn.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "KABOB CLOUD INC.", website: "kabob.io", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Nexera", website: "https://www.nexretail.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Taiwan Semiconductor Research Institute", website: "https://www.tsri.org.tw/english/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Voltraware Semiconductor Co., LTD.", website: "https://www.voltraware.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Avalanche Computing Taiwan Inc. (AIthena - new company under registration in the USA)", website: "https://www.avalanc.com/product-aithena", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Epic Tech Taiwan", website: "https://www.epictech.com.tw?en", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "G1 Intelligent Technologies, Inc.", website: "https://fearless-grape-r487jb.mystrikingly.com/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "ible Technology Inc.", website: "www.airvida.co", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Intelligent Information Security Technology Inc.", website: "www.iist-site.com", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "LightMatrix", website: "https://www.lightmatrix3d.com", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "MetAI Technology Co., Ltd.", website: "https://www.met-ai.com/en", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "TSGC Technologies Inc.", website: "https://www.tsgc.com.tw/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "YO-KAI EXPRESS INC", website: "www.yokaiexpress.com", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Aitronics", website: "https://www.miis.com.tw/index.php?lang=us", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" }
+            ],
+            "Bruce Bateman": [
+                { name: "Biomera", website: "https://biomera.eu/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "mycomfytech", website: "https://www.mycomfytech.com/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "National Center for Research on Earthquake Engineering, NIAR", website: "https://5dsmartes.weebly.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "OTOWAHR", website: "https://www.otowahr.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "TanE AIOT Corporation", website: "https://www.tanewireless.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "TSGC Technologies Inc.", website: "https://www.tsgc.com.tw/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Anchor Film Co., Ltd.", website: "https://www.anchorfilmtw.com/en-anchor", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Anivance AI Corporation", website: "https://www.anivance.io/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "BarkingDog Technology Inc.", website: "https://www.barkingdog.ai/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "CancerFree Biotech Inc.", website: "https://cancerfree.io/en", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "HUA TEC INTERNATIONAL CO., LTD.", website: "https://huatec.cytoaurora.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "King One Interactive Technology CO., LTD.", website: "https://seeulair.com/?lang=en", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Meta Intelligence Co., Ltd.", website: "https://www.meta-intelligence.tech/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "MOOOORE CO., LTD.", website: "https://x.m4ore.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "TANGRAM Co., Ltd", website: "https://www.netigate.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Upbeat Technology", website: "https://www.upbeattechtw.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "VitalSigns Corp", website: "https://vitalsignscorp.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "X-UNIV. CO., LTD.", website: "https://www.bookai.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" }
+            ],
+            "Chander Kant": [
+                { name: "Anchor Film Co., Ltd.", website: "https://www.anchorfilmtw.com/en-anchor", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Avalanche Computing Taiwan Inc. (AIthena - new company under registration in the USA)", website: "https://www.avalanc.com/product-aithena", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "King One Interactive Technology CO., LTD.", website: "https://seeulair.com/?lang=en", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "MOOOORE CO., LTD.", website: "https://x.m4ore.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Serafim Technologies LLC", website: "https://serafimgaming.com/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "YO-KAI EXPRESS INC", website: "www.yokaiexpress.com", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Epic Tech Taiwan", website: "https://www.epictech.com.tw?en", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "G1 Intelligent Technologies, Inc.", website: "https://fearless-grape-r487jb.mystrikingly.com/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "ible Technology Inc.", website: "www.airvida.co", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Intelligent Information Security Technology Inc.", website: "www.iist-site.com", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "KABOB CLOUD INC.", website: "kabob.io", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "LightMatrix", website: "https://www.lightmatrix3d.com", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "MetAI Technology Co., Ltd.", website: "https://www.met-ai.com/en", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Nexera", website: "https://www.nexretail.com", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "TSGC Technologies Inc.", website: "https://www.tsgc.com.tw/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Aitronics", website: "https://www.miis.com.tw/index.php?lang=us", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" }
+            ],
+            "Christopher Balmaseda": [
+                { name: "Holon Robotics", website: "https://www.holonrobotics.com/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Memorence AI", website: "https://www.memorence.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Next Integral Ltd.", website: "www.nextintegral.com", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "TANGRAM Co., Ltd", website: "https://www.netigate.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "DeepMentor Inc", website: "http://www.deepmentor.ai", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "EVA MILL INC. (Originally \"GloryKylin\")", website: "https://www.glorykylin.com/en/glorykylin-home/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Far Vision Technology CO., LTD.", website: "https://far-vision.com.tw/pages/PRO-en", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Galaverse Ltd Corp", website: "https://galaverse-git-dev-daskinnymans-projects.vercel.app/mission", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "GasolineAI Co., Ltd.", website: "twlng.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "LiPro Vision Co., Ltd.", website: "liprovision.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Milli", website: "https://www.milli-ads.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "OTOWAHR", website: "https://www.otowahr.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Ranictek Inc.", website: "https://www.ranictek.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Strong-Wave Radio Technology Inc.", website: "https://www.swart.com.tw/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Taiwan Semiconductor Research Institute", website: "https://www.tsri.org.tw/english/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Ubestream Inc.", website: "https://ubestream.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Voltraware Semiconductor Co., LTD.", website: "https://www.voltraware.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" }
+            ],
+            "Deborah Magid": [
+                { name: "Epic Tech Taiwan", website: "https://www.epictech.com.tw?en", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "G1 Intelligent Technologies, Inc.", website: "https://fearless-grape-r487jb.mystrikingly.com/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "ible Technology Inc.", website: "www.airvida.co", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Intelligent Information Security Technology Inc.", website: "www.iist-site.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "MetAI Technology Co., Ltd.", website: "https://www.met-ai.com/en", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Anchor Film Co., Ltd.", website: "https://www.anchorfilmtw.com/en-anchor", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Anivance AI Corporation", website: "https://www.anivance.io/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "BarkingDog Technology Inc.", website: "https://www.barkingdog.ai/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Biomera", website: "https://biomera.eu/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "CancerFree Biotech Inc.", website: "https://cancerfree.io/en", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "HUA TEC INTERNATIONAL CO., LTD.", website: "https://huatec.cytoaurora.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "King One Interactive Technology CO., LTD.", website: "https://seeulair.com/?lang=en", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Meta Intelligence Co., Ltd.", website: "https://www.meta-intelligence.tech/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "MOOOORE CO., LTD.", website: "https://x.m4ore.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "National Center for Research on Earthquake Engineering, NIAR", website: "https://5dsmartes.weebly.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "TanE AIOT Corporation", website: "https://www.tanewireless.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "TANGRAM Co., Ltd", website: "https://www.netigate.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Upbeat Technology", website: "https://www.upbeattechtw.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "VitalSigns Corp", website: "https://vitalsignscorp.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "X-UNIV. CO., LTD.", website: "https://www.bookai.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" }
+            ],
+            "Dr. Volker Kaese": [
+                { name: "Ailicorn Inc", website: "https://ailicorn.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "AIRA Corporation", website: "https://www.aira.com.tw/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "All Good Energy Powered by Molicel", website: "www.allgoodenergy.com.tw", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "DeepMentor Inc", website: "http://www.deepmentor.ai", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "mLAB", website: "https://www.millilab.io/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "mycomfytech", website: "https://www.mycomfytech.com/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Optiqb AI Technology LTD", website: "www.optiqb.com", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Taiwan Semiconductor Research Institute", website: "https://www.tsri.org.tw/english/", track: "Challenger", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Upbeat Technology", website: "https://www.upbeattechtw.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "ARDGE", website: "www.ardge.com", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Holon Robotics", website: "https://www.holonrobotics.com/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Karasonic International Co., Ltd.", website: "https://www.jodio.co/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "LIGHT MOMENTUM TECHNOLOGY CORP.", website: "http://www.lmtec.net/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "R2C2", website: "https://www.r2c2.ai/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Serafim Technologies LLC", website: "https://serafimgaming.com/", track: "Deal Maker", am: "N/A", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" }
+            ],
+            "Johnny Yu": [
+                { name: "Anivance AI Corporation", website: "https://www.anivance.io/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "CancerFree Biotech Inc.", website: "https://cancerfree.io/en", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "HUA TEC INTERNATIONAL CO., LTD.", website: "https://huatec.cytoaurora.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "VitalSigns Corp", website: "https://vitalsignscorp.com", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Aitronics", website: "https://www.miis.com.tw/index.php?lang=us", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Anchor Film Co., Ltd.", website: "https://www.anchorfilmtw.com/en-anchor", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "BarkingDog Technology Inc.", website: "https://www.barkingdog.ai/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Biomera", website: "https://biomera.eu/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "King One Interactive Technology CO., LTD.", website: "https://seeulair.com/?lang=en", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Meta Intelligence Co., Ltd.", website: "https://www.meta-intelligence.tech/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "MOOOORE CO., LTD.", website: "https://x.m4ore.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "National Center for Research on Earthquake Engineering, NIAR", website: "https://5dsmartes.weebly.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "TanE AIOT Corporation", website: "https://www.tanewireless.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "TANGRAM Co., Ltd", website: "https://www.netigate.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Upbeat Technology", website: "https://www.upbeattechtw.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "X-UNIV. CO., LTD.", website: "https://www.bookai.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" }
+            ],
+            "Leland Lai": [
+                { name: "ARDGE", website: "www.ardge.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "EVA MILL INC. (Originally \"GloryKylin\")", website: "https://www.glorykylin.com/en/glorykylin-home/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Ranictek Inc.", website: "https://www.ranictek.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Strong-Wave Radio Technology Inc.", website: "https://www.swart.com.tw/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "R2C2", website: "https://www.r2c2.ai/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "AIRA Corporation", website: "https://www.aira.com.tw/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "All Good Energy Powered by Molicel", website: "www.allgoodenergy.com.tw", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Holon Robotics", website: "https://www.holonrobotics.com/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Karasonic International Co., Ltd.", website: "https://www.jodio.co/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "LIGHT MOMENTUM TECHNOLOGY CORP.", website: "http://www.lmtec.net/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "mLAB", website: "https://www.millilab.io/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "mycomfytech", website: "https://www.mycomfytech.com/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Optiqb AI Technology LTD", website: "www.optiqb.com", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "Serafim Technologies LLC", website: "https://serafimgaming.com/", track: "Deal Maker", am: "N/A", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Meeting Skills and Negotiation (W4)" }
+            ],
+            "Luca Di Fiore": [
+                { name: "Karasonic International Co., Ltd.", website: "https://www.jodio.co/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "National Center for Research on Earthquake Engineering, NIAR", website: "https://5dsmartes.weebly.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Optiqb AI Technology LTD", website: "www.optiqb.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Serafim Technologies LLC", website: "https://serafimgaming.com/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "LiPro Vision Co., Ltd.", website: "liprovision.com", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "DeepMentor Inc", website: "http://www.deepmentor.ai", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "EVA MILL INC. (Originally \"GloryKylin\")", website: "https://www.glorykylin.com/en/glorykylin-home/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Far Vision Technology CO., LTD.", website: "https://far-vision.com.tw/pages/PRO-en", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Galaverse Ltd Corp", website: "https://galaverse-git-dev-daskinnymans-projects.vercel.app/mission", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "GasolineAI Co., Ltd.", website: "twlng.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Memorence AI", website: "https://www.memorence.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Milli", website: "https://www.milli-ads.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Next Integral Ltd.", website: "www.nextintegral.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "OTOWAHR", website: "https://www.otowahr.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Ranictek Inc.", website: "https://www.ranictek.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Strong-Wave Radio Technology Inc.", website: "https://www.swart.com.tw/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Taiwan Semiconductor Research Institute", website: "https://www.tsri.org.tw/english/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Ubestream Inc.", website: "https://ubestream.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Voltraware Semiconductor Co., LTD.", website: "https://www.voltraware.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" }
+            ],
+            "Mark Birch": [
+                { name: "BarkingDog Technology Inc.", website: "https://www.barkingdog.ai/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Meta Intelligence Co., Ltd.", website: "https://www.meta-intelligence.tech/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "YO-KAI EXPRESS INC", website: "www.yokaiexpress.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "LightMatrix", website: "https://www.lightmatrix3d.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "Anchor Film Co., Ltd.", website: "https://www.anchorfilmtw.com/en-anchor", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Anivance AI Corporation", website: "https://www.anivance.io/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Biomera", website: "https://biomera.eu/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "CancerFree Biotech Inc.", website: "https://cancerfree.io/en", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "HUA TEC INTERNATIONAL CO., LTD.", website: "https://huatec.cytoaurora.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "King One Interactive Technology CO., LTD.", website: "https://seeulair.com/?lang=en", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "MOOOORE CO., LTD.", website: "https://x.m4ore.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "National Center for Research on Earthquake Engineering, NIAR", website: "https://5dsmartes.weebly.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "TanE AIOT Corporation", website: "https://www.tanewireless.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "TANGRAM Co., Ltd", website: "https://www.netigate.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Upbeat Technology", website: "https://www.upbeattechtw.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "VitalSigns Corp", website: "https://vitalsignscorp.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "X-UNIV. CO., LTD.", website: "https://www.bookai.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" }
+            ],
+            "Shafeen Charania": [
+                { name: "Edura Co., Ltd.", website: "https://www.edura.tech/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Far Vision Technology CO., LTD.", website: "https://far-vision.com.tw/pages/PRO-en", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Milli", website: "https://www.milli-ads.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Ubestream Inc.", website: "https://ubestream.com", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "X-UNIV. CO., LTD.", website: "https://www.bookai.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "DeepMentor Inc", website: "http://www.deepmentor.ai", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "EVA MILL INC. (Originally \"GloryKylin\")", website: "https://www.glorykylin.com/en/glorykylin-home/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Galaverse Ltd Corp", website: "https://galaverse-git-dev-daskinnymans-projects.vercel.app/mission", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "GasolineAI Co., Ltd.", website: "twlng.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "LiPro Vision Co., Ltd.", website: "liprovision.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Memorence AI", website: "https://www.memorence.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Next Integral Ltd.", website: "www.nextintegral.com", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "OTOWAHR", website: "https://www.otowahr.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Ranictek Inc.", website: "https://www.ranictek.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Strong-Wave Radio Technology Inc.", website: "https://www.swart.com.tw/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Taiwan Semiconductor Research Institute", website: "https://www.tsri.org.tw/english/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Voltraware Semiconductor Co., LTD.", website: "https://www.voltraware.com/", track: "Challenger", am: "N/A", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" }
+            ],
+            "Wilson Khoo": [
+                { name: "AIRA Corporation", website: "https://www.aira.com.tw/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "mLAB", website: "https://www.millilab.io/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "OTOWAHR", website: "https://www.otowahr.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "GasolineAI Co., Ltd.", website: "twlng.com", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "ARDGE", website: "www.ardge.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "DeepMentor Inc", website: "http://www.deepmentor.ai", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Edura Co., Ltd.", website: "https://www.edura.tech/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "EVA MILL INC. (Originally \"GloryKylin\")", website: "https://www.glorykylin.com/en/glorykylin-home/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Far Vision Technology CO., LTD.", website: "https://far-vision.com.tw/pages/PRO-en", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Galaverse Ltd Corp", website: "https://galaverse-git-dev-daskinnymans-projects.vercel.app/mission", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "LiPro Vision Co., Ltd.", website: "liprovision.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Memorence AI", website: "https://www.memorence.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Milli", website: "https://www.milli-ads.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Next Integral Ltd.", website: "www.nextintegral.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Ranictek Inc.", website: "https://www.ranictek.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Strong-Wave Radio Technology Inc.", website: "https://www.swart.com.tw/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Taiwan Semiconductor Research Institute", website: "https://www.tsri.org.tw/english/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Ubestream Inc.", website: "https://ubestream.com", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Voltraware Semiconductor Co., LTD.", website: "https://www.voltraware.com/", track: "Challenger", am: "N/A", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "Fact Finding & Booth Engagement (W1)" }
+            ],
+            "Ken Huang": [
+                { name: "Far Vision Technology CO., LTD.", website: "https://far-vision.com.tw/pages/PRO-en", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "MOOOORE CO., LTD.", website: "https://x.m4ore.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Strong-Wave Radio Technology Inc.", website: "https://www.swart.com.tw/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Upbeat Technology", website: "https://www.upbeattechtw.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Memorence AI", website: "https://www.memorence.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "MetAI Technology Co., Ltd.", website: "https://www.met-ai.com/en", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" }
+            ],
+            "Joshua Fu": [
+                { name: "Anchor Film Co., Ltd.", website: "https://www.anchorfilmtw.com/en-anchor", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "BarkingDog Technology Inc.", website: "https://www.barkingdog.ai/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Karasonic International Co., Ltd.", website: "https://www.jodio.co/", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" },
+                { name: "King One Interactive Technology CO., LTD.", website: "https://seeulair.com/?lang=en", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)", pm2: "Fact Finding & Booth Engagement (W1)" },
+                { name: "Meta Intelligence Co., Ltd.", website: "https://www.meta-intelligence.tech/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Milli", website: "https://www.milli-ads.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Ubestream Inc.", website: "https://ubestream.com", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Fact Finding & Booth Engagement (W1)", pm2: "CES Floor Hunting, Party Tactics & Post-Tradeshow Follow-up (W2)" },
+                { name: "Nexera", website: "https://www.nexretail.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
+                { name: "KABOB CLOUD INC.", website: "kabob.io", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" }
+            ]
+            // Note: Volker Heistermann is Keynote Only and not in the breakout assignments.
+        };
+        // --- END NEW DATA STRUCTURE ---
+
+
         function populateMentorRosterTable() {
             const tbody = document.querySelector('#mentor_roster .mentor-table tbody');
             if (!tbody) return;
@@ -1138,6 +1460,60 @@
                     <td>${mentor.expertise}</td>
                 </tr>
             `).join('');
+        }
+
+        function filterAssignments() {
+            const input = document.getElementById('mentor-search-input').value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('assignments-results');
+            resultsDiv.innerHTML = '';
+
+            // Find the mentor name in the assignments object
+            const mentorName = Object.keys(mentorAssignments).find(key => key.toLowerCase() === input);
+
+            if (mentorName) {
+                const startups = mentorAssignments[mentorName];
+                let tableHTML = `
+                    <h2 style="color: #667eea; margin-bottom: 15px;">Assignments for ${mentorName}</h2>
+                    <table class="assignment-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Startup Name & Website</th>
+                                <th style="width: 10%;">Track</th>
+                                <th style="width: 25%;">Morning Pod (10:30-12:00)</th>
+                                <th style="width: 20%;">Afternoon W1 (13:00-14:30)</th>
+                                <th style="width: 20%;">Afternoon W2 (14:50-16:20)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                startups.forEach(startup => {
+                    const trackClass = startup.track.toLowerCase().includes('deal') ? 'track-deal-maker' : 'track-challenger';
+                    const amSession = startup.am === 'N/A' ? 'N/A (Co-Mentor)' : startup.am;
+                    
+                    // Highlight the session where the searched mentor is the primary lead (AM or PM)
+                    const isAmLead = startup.am === 'Sales Pitch Training & Assessment';
+                    const isPm1Lead = startup.pm1.includes(mentorName) || (startup.pm1.includes('Solo') && startup.pm1.includes('W4'));
+                    const isPm2Lead = startup.pm2.includes(mentorName) || (startup.pm2.includes('Solo') && startup.pm2.includes('W4'));
+
+                    tableHTML += `
+                        <tr>
+                            <td><a href="${startup.website}" target="_blank" class="startup-name-link">${startup.name}</a></td>
+                            <td><span class="${trackClass}">${startup.track}</span></td>
+                            <td class="${isAmLead ? 'session-am' : ''}">${amSession}</td>
+                            <td class="${isPm1Lead ? 'session-pm' : ''}">${startup.pm1}</td>
+                            <td class="${isPm2Lead ? 'session-pm' : ''}">${startup.pm2}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHTML += `</tbody></table>`;
+                resultsDiv.innerHTML = tableHTML;
+            } else if (input.length > 0) {
+                resultsDiv.innerHTML = `<div class="no-results">No assignments found for "${input}". Please try your full name (e.g., Bruce Bateman).</div>`;
+            } else {
+                resultsDiv.innerHTML = `<div class="no-results">Please type your mentor name above to view your personalized schedule and startup assignments.</div>`;
+            }
         }
 
 
@@ -1239,6 +1615,9 @@
             } else if (tabName === 'mentor_roster') {
                  const rosterBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('Full Mentor Roster'));
                 if (rosterBtn) rosterBtn.classList.add('active');
+            } else if (tabName === 'my_assignments') {
+                 const assignmentsBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('My Assignments'));
+                if (assignmentsBtn) assignmentsBtn.classList.add('active');
             }
 
 
@@ -1272,3 +1651,4 @@
     </script>
 </body>
 </html>
+```
