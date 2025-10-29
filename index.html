@@ -235,6 +235,73 @@
         .mentor-table a { color: #007bb6; text-decoration: none; font-weight: 600; }
         .mentor-table a:hover { text-decoration: underline; color: #667eea; }
 
+        /* === NEW STYLES FOR STARTUP FEEDBACK TABLE === */
+        .feedback-table-container {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .feedback-table-container h2 {
+            color: #007bb6;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+            font-weight: 700;
+            font-size: 24px;
+        }
+        .startup-feedback-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .startup-feedback-table th, .startup-feedback-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f5;
+            vertical-align: top;
+            font-size: 14px;
+        }
+        .startup-feedback-table th {
+            background-color: #f8f8fc;
+            color: #333;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky; top: 0;
+        }
+        .startup-feedback-table tr:hover td {
+            background-color: #f0f0f5;
+        }
+        .startup-feedback-table td.startup-name-cell a {
+            color: #667eea;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .startup-feedback-table td.startup-name-cell a:hover {
+            text-decoration: underline;
+            color: #764ba2;
+        }
+        .track-deal-maker {
+            color: #dc3545; /* Red/Dealmaker color */
+            font-weight: 700;
+        }
+        .track-challenger {
+            color: #28a745; /* Green/Challenger color */
+            font-weight: 700;
+        }
+        /* Score Badges */
+        .score-5 { background-color: #d4edda; color: #155724; padding: 5px 10px; border-radius: 5px; font-weight: 700; display: inline-block; }
+        .score-4 { background-color: #fff3cd; color: #856404; padding: 5px 10px; border-radius: 5px; display: inline-block; }
+        .score-3 { background-color: #f8d7da; color: #721c24; padding: 5px 10px; border-radius: 5px; display: inline-block; }
+        .score-2, .score-1 { background-color: #f8d7da; color: #721c24; padding: 5px 10px; border-radius: 5px; font-weight: 700; display: inline-block; }
+        .advice-cell {
+            font-style: italic;
+            color: #555;
+            border-left: 3px solid #667eea;
+            padding-left: 10px;
+        }
         /* ========================================================= */
         /* MEDIA QUERIES FOR MOBILE/RESPONSIVENESS (iPhones, Androids) */
         /* ========================================================= */
@@ -276,6 +343,22 @@
             }
             .mentor-table thead, .mentor-table tbody { display: table; width: 100%; table-layout: fixed; }
             .mentor-table th, .mentor-table td { padding: 8px; font-size: 13px; }
+            
+            /* Feedback Table Mobile */
+            .startup-feedback-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .startup-feedback-table thead, .startup-feedback-table tbody, .startup-feedback-table tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+            .startup-feedback-table th, .startup-feedback-table td {
+                padding: 10px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -502,6 +585,308 @@
                     </div>
                 </div>
             </div>
+
+            <!-- NEW STARTUP FEEDBACK TABLE SECTION -->
+            <div class="feedback-table-container">
+                <h2>🎯 Startup Readiness Scorecard & Mentor Feedback</h2>
+                <p style="font-size: 16px; color: #555; margin-bottom: 15px;">
+                    This table compiles the **Overall CES-Readiness Score** and the **"One Thing"** advice from the initial pitch reviews (Oct 14-15) for all accepted startups.
+                </p>
+                <table class="startup-feedback-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Startup Name</th>
+                            <th style="width: 10%;">Track</th>
+                            <th style="width: 10%;">Pitch Mentor</th>
+                            <th style="width: 10%;">Readiness Score (1-5)</th>
+                            <th style="width: 55%;">The "One Thing" (Most Important Advice)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.tsgc.com.tw/" target="_blank">TSGC Technologies Inc.</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"no chemicals, you can do what you want with the by products of carbon and hydrogen"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://biomera.eu/" target="_blank">Biomera</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"keep it simple, everyone knows the problem, you might mention why your better than paper straws. people hate those"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.mycomfytech.com/" target="_blank">mycomfytech</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"get the same level of professionalism into all deliverables"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="http://www.lmtec.net/" target="_blank">LIGHT MOMENTUM TECHNOLOGY CORP.</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"keep it short and give the audinece time to digest the info. this is not a race"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="www.optiqb.com" target="_blank">Optiqb AI Technology LTD</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"be prepared to call the license agreement"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.avalanc.com/product-aithena" target="_blank">Avalanche Computing</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"less is more on a slide, clean it up, otherwise the audience tries to understand the deck and does not listen"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.holonrobotics.com/" target="_blank">Holon Robotics</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"get clear about the promise/solution in general, do not near down yourself"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.met-ai.com/en" target="_blank">MetAI Technology Co., Ltd.</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Ken Huang</td>
+                            <td><span class="score-5">5</span></td>
+                            <td class="advice-cell">"Be fearless and confident."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="twlng.com" target="_blank">GasolineAI Co., Ltd.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"1 sentence statement, to see if interested"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.tanewireless.com/" target="_blank">TanE AIOT Corporation</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"address the hard question ... fda"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="www.nextintegral.com" target="_blank">Next Integral Ltd.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"focus on your unique value"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://serafimgaming.com/" target="_blank">Serafim Technologies LLC</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Chander Kant</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Your device sounds fun. Make sure the presentation of the device is fun as well."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="www.iist-site.com" target="_blank">Intelligent Information Security Technology Inc.</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Chander Kant</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Need to figure out how to make non-security experts (but decision makers) be interested in your solution."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.tsri.org.tw/english/" target="_blank">Taiwan Semiconductor Research Institute</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"get your homework done, you have an amzing potential, as a startup idea and as a personality"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://ailicorn.com/" target="_blank">Ailicorn Inc</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"The pitchdeck needs a full refresh, the template can not be seen in this (City T 123456789, besteverwebpaes.com)"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.anivance.io/" target="_blank">Anivance AI Corporation</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Johnny Yu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Be confident and make the ask"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://cancerfree.io/en" target="_blank">CancerFree Biotech Inc.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Johnny Yu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Make the good storyline (pain point, example, real world data, benefit for audience)"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="www.airvida.co" target="_blank">ible Technology Inc.</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Johnny Yu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Be confident about the product"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://huatec.cytoaurora.com/" target="_blank">HUA TEC INTERNATIONAL CO., LTD.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Johnny Yu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"clarify your target audience and make sure the proposal fit into their needs"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.miis.com.tw/index.php?lang=us" target="_blank">Aitronics</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Johnny Yu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Be confident and make a stronger statement to attract partners"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.meta-intelligence.tech/" target="_blank">Meta Intelligence Co., Ltd.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Experienced startup, would gain from bootcamp focused on BD."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.jodio.co/" target="_blank">Karasonic International Co., Ltd.</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Simple product. Add pricing package. Can benefit from BD support. But not sure if there's a market."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.barkingdog.ai/" target="_blank">BarkingDog Technology Inc.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Experienced, has paying customers, sellable product, can benefit from BD support."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://far-vision.com.tw/pages/PRO-en" target="_blank">Far Vision Technology CO., LTD.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Ken Huang</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Build credibility around your product from slides."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.memorence.com/" target="_blank">Memorence AI</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Ken Huang</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Redesign your slide and you will be good."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.millilab.io/" target="_blank">mLAB</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Wilson Khoo</td>
+                            <td><span class="score-4">4</span></td>
+                            <td class="advice-cell">"Do not rush the presentation, articulate so people understand"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.edura.tech/" target="_blank">Edura Co., Ltd.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Chander Kant</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Focus on the key problems you are solving."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="http://www.deepmentor.ai" target="_blank">DeepMentor Inc</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Dr. Volker Kaese</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Judy is the sales person , I want the CEO in the pitch"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://vitalsignscorp.com" target="_blank">VitalSigns Corp</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Johnny Yu</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Need to position the product on the right market"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.bookai.com/" target="_blank">X-UNIV. CO., LTD.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Be able to show credibility. A company's data is sensitive informaiton and they need to trust you can manage their data."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.anchorfilmtw.com/en-anchor" target="_blank">Anchor Film Co., Ltd.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Experienced, profitable, but agency. Need to focus on talking about the platform and switch mindset."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://seeulair.com/?lang=en" target="_blank">King One Interactive Technology CO., LTD.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Know your target audience and research market opportunity size."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="www.ardge.com" target="_blank">ARDGE</a></td>
+                            <td><span class="track-deal-maker">Deal Maker</span></td>
+                            <td>Wilson Khoo</td>
+                            <td><span class="score-3">3</span></td>
+                            <td class="advice-cell">"Story line have to be stronger, very competitive area so the why you questions will be important. be sure to talk about your key differentiator for your target audience"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://5dsmartes.weebly.com/" target="_blank">National Center for Research on Earthquake Engineering, NIAR</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-2">2</span></td>
+                            <td class="advice-cell">"shorter story. more about how you do your analysis"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.otowahr.com/" target="_blank">OTOWAHR</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Bruce Bateman</td>
+                            <td><span class="score-2">2</span></td>
+                            <td class="advice-cell">"your unique selling point. too many headphones in market, everyone in headset business know hearing aids new markets. 3 points that make you different"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.swart.com.tw/" target="_blank">Strong-Wave Radio Technology Inc.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Ken Huang</td>
+                            <td><span class="score-2">2</span></td>
+                            <td class="advice-cell">"Be less technical and tell a story."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://x.m4ore.com/" target="_blank">MOOOORE CO., LTD.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Ken Huang</td>
+                            <td><span class="score-2">2</span></td>
+                            <td class="advice-cell">"Speak slow, and be more straight to the point, it can be hard to follow his English."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.voltraware.com/" target="_blank">Voltraware Semiconductor Co., LTD.</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Wilson Khoo</td>
+                            <td><span class="score-2">2</span></td>
+                            <td class="advice-cell">"Understand what you can do, what is the company you are trying to build here. What are you selling is important, how you want to portray yourself. is lawnmower robotic company the image you are trying to build"</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.milli-ads.com/" target="_blank">Milli</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Joshua Fu</td>
+                            <td><span class="score-1">1</span></td>
+                            <td class="advice-cell">"Provide reason why users would want to use this? This is a consumer app. Figure out growth before revenue."</td>
+                        </tr>
+                        <tr>
+                            <td class="startup-name-cell"><a href="https://www.upbeattechtw.com/" target="_blank">Upbeat Technology</a></td>
+                            <td><span class="track-challenger">Challenger</span></td>
+                            <td>Ken Huang</td>
+                            <td><span class="score-1">1</span></td>
+                            <td class="advice-cell">"The presentation is plainly terrible. Good tech with terrible storytelling capabilities."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END NEW STARTUP FEEDBACK TABLE SECTION -->
         </div>
         <!-- END NEW TAB -->
 
@@ -638,7 +1023,7 @@
             'morning': 'https://drive.google.com/drive/folders/1VB29C2kPdXRBb1INQMsqrdbb5e3TEsue?usp=sharing',
             'w1': 'https://drive.google.com/drive/folders/18eldMRSfrafNAnw3YYONgZ48W1MVIytf?usp=sharing',
             'w2': 'https://drive.google.com/drive/folders/1pVaKO3Vg-HmYn8Qb26iUZZvtf9f537rn?usp=sharing',
-            'w3': 'https://drive.google.com/drive/folders/1Ezq7aPxgSBvKD-BUQF8zrh7df8YKm_Qz?usp=sharing',
+            'w3': 'https://drive.google.com/drive/folders/1Ezq7aPxgSBvKD-BUQF8zrh7df8YKmOQz?usp=sharing',
             'w4': 'https://drive.google.com/drive/folders/1Joij6lDFEaKNxQ_nMDtGcU2u56qekWfr?usp=sharing',
         };
 
@@ -665,7 +1050,7 @@
             'Christopher Balmaseda': {
                 company: 'Valtec (Valiant Tech)', expertise: 'Cross-border Venture Building, Life Science', track: 'Challenger', w_code: 'w2',
                 keynote: null,
-                morning_pod: { time: '10:30 - 12:00', room: 'Room 405', staff: 'Jade', focus: 'Sales Deck Review, Strategic Positioning' },
+                morning_pod: { time: '10:30 - 12:00', room: 'Room 307', staff: 'Jade', focus: 'Sales Deck Review, Strategic Positioning' },
                 afternoon: { time: '13:00 - 14:30 & 14:50 - 16:20', room: 'Room 405', workshop: 'W2: CES Hunting, Party Tactics', co_mentor: 'Shafeen Charania', tasks: ['Deliver PPT on CES Floor Hunting & Party Tactics (Shafeen leads lecture)', 'Help lead Mock party simulation with music.', 'Provide feedback on Post-Tradeshow Follow-up systems.'] }
             },
             'Deborah Magid': {
@@ -683,7 +1068,7 @@
             'Johnny Yu': {
                 company: 'Mosaic Venture Lab', expertise: 'Finance, Operations, Investment Strategy', track: 'Challenger', w_code: 'w1',
                 keynote: null,
-                morning_pod: { time: '10:30 - 12:00', room: 'Room 307', staff: 'Emily', focus: 'Sales Deck Review, Strategic Positioning' },
+                morning_pod: { time: '10:30 - 12:00', room: 'Room 405', staff: 'Emily', focus: 'Sales Deck Review, Strategic Positioning' },
                 afternoon: { time: '13:00 - 14:30 & 14:50 - 16:20', room: 'Staircase Right', workshop: 'W1: Fact Finding & Booth Engagement', co_mentor: 'Deborah Magid', tasks: ['Assist Deborah Magid with PPT lecture (15 min) on booth engagement best practices.', 'Lead simulated booth interactions and play challenging buyer roles.', 'Focus on Fact-finding techniques and 10-second hooks.'] }
             },
             'Leland Lai': {
