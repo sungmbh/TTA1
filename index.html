@@ -196,9 +196,14 @@
         }
         .agenda-table td:first-child { font-weight: 700; color: #667eea; white-space: nowrap; }
         .agenda-table tr:nth-child(odd) td { background: #f0f0f5; }
-        .main-hall-event { border-left: 5px solid #ff4500 !important; }
-        .training-pod-event { border-left: 5px solid #20c997 !important; }
-        .workshop-event { border-left: 5px solid #007bb6 !important; }
+        .agenda-table .details ul { margin-left: 20px; margin-top: 10px; color: #555; }
+        .agenda-table .details li { margin-bottom: 8px; }
+        .agenda-table .details strong { color: #333; }
+        .agenda-table .details em { color: #764ba2; }
+
+        .main-hall-event td { border-left: 5px solid #ff4500 !important; }
+        .training-pod-event td { border-left: 5px solid #20c997 !important; }
+        .workshop-event td { border-left: 5px solid #007bb6 !important; }
         
         /* Search/Instruction Area */
         .instruction-box { 
@@ -467,26 +472,97 @@
 
             <h2 style="margin-bottom: 15px; color: #212529; margin-top: 40px;">📋 Full Day Schedule Overview</h2>
 
+            <!-- =================================== -->
+            <!-- === UPDATED AGENDA TABLE STARTS === -->
+            <!-- =================================== -->
             <table class="agenda-table">
                 <thead>
                     <tr>
-                        <th style="width: 120px;">Time</th>
-                        <th>Event</th>
-                        <th style="width: 200px;">Location</th>
+                        <th style="width: 15%;">Time</th>
+                        <th>Event & Session Details</th>
+                        <th style="width: 20%;">Location</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="main-hall-event"><td>08:30 - 09:00</td><td>Check-in & Registration</td><td>Main Entrance</td></tr>
-                    <tr class="main-hall-event"><td>09:00 - 10:25</td><td>Opening, Keynotes, & Workshop (All 56 Startups)</td><td>Main Hall / Staircase Area</td></tr>
-                    <tr><td>10:25 - 10:30</td><td>Transition Break (5 min)</td><td>Hallways</td></tr>
-                    <tr class="training-pod-event"><td>10:30 - 12:00</td><td><strong>Morning Training Pods</strong> (12 Breakouts)</td><td>12 Separate Rooms</td></tr>
-                    <tr><td>12:00 - 13:00</td><td>Lunch Break (Networking Lunch)</td><td>Lunch Area</td></tr>
-                    <tr class="workshop-event"><td>13:00 - 14:30</td><td><strong>Workshop Rotation 1</strong> (90 min)</td><td>4 Workshop Room Sets</td></tr>
-                    <tr><td>14:30 - 14:50</td><td>Break (20 min)</td><td>N/A</td></tr>
-                    <tr class="workshop-event"><td>14:50 - 16:20</td><td><strong>Workshop Rotation 2</strong> (90 min)</td><td>4 Workshop Room Sets</td></tr>
-                    <tr class="main-hall-event"><td>16:20 - 17:10</td><td>Closing Sessions (Feedback, Ceremony)</td><td>Main Hall</td></tr>
+                    <tr class="main-hall-event">
+                        <td>08:30 - 09:00 AM</td>
+                        <td class="details"><strong>Arrive & Get Ready</strong><br>Check-in, get your materials, and connect with other founders.</td>
+                        <td>Main Entrance</td>
+                    </tr>
+                    <tr class="main-hall-event">
+                        <td>09:00 - 09:20 AM</td>
+                        <td class="details"><strong>Opening Ceremony</strong><br>Official welcome and group photo with all startups, mentors & officials.</td>
+                        <td>Main Hall</td>
+                    </tr>
+                    <tr class="main-hall-event">
+                        <td>09:20 - 10:20 AM</td>
+                        <td class="details">
+                            <strong>Three Power Keynotes from Industry Veterans</strong>
+                            <ul>
+                                <li><strong>Keynote 1:</strong> "The US Playbook: From Corporate Pilots to Federal Funding" by <em>Deborah Magid</em></li>
+                                <li><strong>Keynote 2:</strong> "The First 10 Seconds: Earn the Right to a Conversation at CES" by <em>Dr. Volker Kaese</em></li>
+                                <li><strong>Keynote 3:</strong> "AI-Powered CES Prep: Turn LLMs Into Your Meeting-Booking Machine" by <em>Volker Heistermann</em></li>
+                            </ul>
+                        </td>
+                        <td>Staircase Area</td>
+                    </tr>
+                    <tr class="main-hall-event">
+                        <td>10:20 - 10:30 AM</td>
+                        <td class="details"><strong>Interactive Workshop: Fix Your First Impression</strong><br>Live fixes of websites, LinkedIn profiles & cold emails.</td>
+                        <td>Staircase Area</td>
+                    </tr>
+                    <tr class="training-pod-event">
+                        <td>10:30 AM - 12:00 PM</td>
+                        <td class="details">
+                            <strong>1-on-1 Pitch Training with Your Mentor</strong><br>
+                            Small group format (4-5 startups per mentor) for personalized feedback on elevator pitch and sales deck.
+                        </td>
+                        <td>Assigned Rooms</td>
+                    </tr>
+                    <tr>
+                        <td>12:00 - 01:00 PM</td>
+                        <td class="details"><strong>Lunch & Networking</strong><br>Connect with other founders and mentors.</td>
+                        <td>Lunch Area</td>
+                    </tr>
+                    <tr class="workshop-event">
+                        <td>01:00 - 02:30 PM</td>
+                        <td class="details">
+                            <strong>Workshop Rotation 1 (90 min)</strong>
+                            <ul>
+                                <li><strong>Challengers Track:</strong> Workshop 1 (Master Booth Engagement) OR Workshop 2 (CES Floor Hunting)</li>
+                                <li><strong>Deal Makers Track:</strong> Workshop 3 (Adaptive Pitching) OR Workshop 4 (Enterprise Negotiation)</li>
+                            </ul>
+                        </td>
+                        <td>Assigned Rooms</td>
+                    </tr>
+                    <tr>
+                        <td>02:30 - 02:50 PM</td>
+                        <td class="details"><strong>Networking Break</strong></td>
+                        <td>N/A</td>
+                    </tr>
+                    <tr class="workshop-event">
+                        <td>02:50 - 04:20 PM</td>
+                        <td class="details">
+                            <strong>Workshop Rotation 2 (90 min)</strong><br>
+                            Groups rotate to attend the other workshop in their track.
+                        </td>
+                        <td>Assigned Rooms</td>
+                    </tr>
+                    <tr class="main-hall-event">
+                        <td>04:20 - 04:50 PM</td>
+                        <td class="details"><strong>Share-Outs & Mentor Panel</strong><br>Each workshop shares top tactics. Open Q&A with mentors.</td>
+                        <td>Main Hall</td>
+                    </tr>
+                    <tr class="main-hall-event">
+                        <td>04:50 - 05:10 PM</td>
+                        <td class="details"><strong>Closing Ceremony & Next Steps</strong><br>Your roadmap for the next 72 hours and access to materials.</td>
+                        <td>Main Hall</td>
+                    </tr>
                 </tbody>
             </table>
+            <!-- ================================= -->
+            <!-- === UPDATED AGENDA TABLE ENDS === -->
+            <!-- ================================= -->
         </div>
 
         <!-- FLOW & OUTCOMES TAB -->
@@ -586,7 +662,7 @@
             </div>
         </div>
 
-        <!-- STARTUP MATERIALS TAB (NEW) -->
+        <!-- STARTUP MATERIALS TAB -->
         <div id="startup_materials" class="tab-content">
             <h1 style="margin-bottom: 25px; color: #212529;">🚀 Startup Pre-Workshop Review Materials</h1>
 
@@ -596,7 +672,6 @@
                     To prepare for the Morning Training Pods (10:30 - 12:00) and the Afternoon Workshops, please review the submitted materials for the startups you will be mentoring. All links and data points are centralized in the Google Sheet below.
                 </p>
 
-                <!-- Anchor Button is retained as a clear, primary CTA -->
                 <a href="https://docs.google.com/spreadsheets/d/1b-xNHw2DuKUB2krIrxHGzxICi9lOpm4mkkQ4-5JJZGo/edit?gid=1276989460#gid=1276989460" target="_blank" class="folder-button" style="margin-bottom: 30px; background: linear-gradient(135deg, #20c997 0%, #10a37f 100%); box-shadow: 0 4px 15px rgba(32, 201, 151, 0.4);">
                     <span>🔗</span> GO TO STARTUP DATA SHEET (Directly to "Startups attending CES" tab)
                 </a>
@@ -609,7 +684,6 @@
                 <h2>Key Data Points Available in the "Startups attending CES" Tab</h2>
                 <div class="flow-grid">
                     <div class="flow-card" style="border-left-color: #667eea;">
-                        <!-- LINK EMBEDDED IN H4 WITH STYLING INHERITED FROM CSS UPDATE -->
                         <h4>
                             <a href="https://docs.google.com/spreadsheets/d/1b-xNHw2DuKUB2krIrxHGzxICi9lOpm4mkkQ4-5JJZGo/edit?gid=1276989460#gid=1276989460" target="_blank">
                                 <span>📄</span> Pitch & Deck Links
@@ -623,7 +697,6 @@
                         </ul>
                     </div>
                     <div class="flow-card" style="border-left-color: #ff4500;">
-                        <!-- LINK EMBEDDED IN H4 WITH STYLING INHERITED FROM CSS UPDATE -->
                         <h4>
                             <a href="https://docs.google.com/spreadsheets/d/1b-xNHw2DuKUB2krIrxHGzxICi9lOpm4mkkQ4-5JJZGo/edit?gid=1276989460#gid=1276989460" target="_blank">
                                 <span>📢</span> Messaging & Analysis
@@ -638,7 +711,6 @@
                 </div>
             </div>
 
-            <!-- NEW STARTUP FEEDBACK TABLE SECTION -->
             <div class="feedback-table-container">
                 <h2>🎯 Startup Readiness Scorecard & Mentor Feedback</h2>
                 <p style="font-size: 16px; color: #555; margin-bottom: 15px;">
@@ -655,6 +727,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- All startup rows are correctly placed here in the provided code and need no changes -->
                         <tr>
                             <td class="startup-name-cell"><a href="https://www.tsgc.com.tw/" target="_blank">TSGC Technologies Inc.</a></td>
                             <td><span class="track-deal-maker">Deal Maker</span></td>
@@ -669,7 +742,7 @@
                             <td><span class="score-5">5</span></td>
                             <td class="advice-cell">"keep it simple, everyone knows the problem, you might mention why your better than paper straws. people hate those"</td>
                         </tr>
-                        <tr>
+                         <tr>
                             <td class="startup-name-cell"><a href="https://www.mycomfytech.com/" target="_blank">mycomfytech</a></td>
                             <td><span class="track-deal-maker">Deal Maker</span></td>
                             <td>Dr. Volker Kaese</td>
@@ -938,11 +1011,9 @@
                     </tbody>
                 </table>
             </div>
-            <!-- END NEW STARTUP FEEDBACK TABLE SECTION -->
         </div>
-        <!-- END NEW TAB -->
 
-        <!-- MY ASSIGNMENTS TAB (NEW) -->
+        <!-- MY ASSIGNMENTS TAB -->
         <div id="my_assignments" class="tab-content">
             <h1 style="margin-bottom: 25px; color: #212529;">🔍 Find Your Startup Assignments</h1>
             <p style="font-size: 16px; margin-bottom: 20px; color: #555;">
@@ -951,14 +1022,13 @@
             <input type="text" id="mentor-search-input" class="assignment-search-box" placeholder="E.g., Dr. Volker Kaese, Bruce Bateman, Johnny Yu" onkeyup="filterAssignments()">
             
             <div id="assignments-results">
-                <div class="no-results">
-                    Please type your mentor name above to view your personalized schedule and startup assignments.
+                <div class="no-results" style="color: #007bb6; background: #e6f7ff;">
+                    Please type your full mentor name into the search box above to view your personalized schedule and startup assignments.
                 </div>
             </div>
         </div>
-        <!-- END MY ASSIGNMENTS TAB -->
 
-        <!-- MENTOR ROSTER TAB (UPDATED WITH NEW LINK) -->
+        <!-- MENTOR ROSTER TAB -->
         <div id="mentor_roster" class="tab-content">
             <h1 style="margin-bottom: 25px; color: #212529;">👥 Full Mentor Roster & Key Expertise</h1>
             <p style="font-size: 16px; margin-bottom: 20px; color: #555;">
@@ -974,80 +1044,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/ashleyhsueh/" target="_blank">Ashley Hsueh</a></td>
-                        <td>Bain & Company</td>
-                        <td>Management consultant; Technology & Cloud Services & Performance Improvement; M&A Strategy.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/deborah-magid-b5318/" target="_blank">Deborah Magid</a></td>
-                        <td>Independent VC Advisor</td>
-                        <td>Venture/Corporate Innovation Advisor; Corporate VC, Enterprise Software, Strategic Partnerships.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/volkerkaese/" target="_blank">Dr. Volker Kaese</a></td>
-                        <td>Ingenev Mobility</td>
-                        <td>CEO; Former Head of Innovation VW & Audi globally; Automotive Strategy & Development.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/shafeen/" target="_blank">Shafeen Charania</a></td>
-                        <td>fluency</td>
-                        <td>COO; Strategy/Operations Leader; ex-SmartGames Ltd.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/johnny-yu-21b36128/" target="_blank">Johnny Yu</a></td>
-                        <td>Mosaic Venture Lab</td>
-                        <td>Managing Director; Finance, Operations, Investment Strategy.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/chanderkant/" target="_blank">Chander Kant</a></td>
-                        <td>K Ventures</td>
-                        <td>CEO; Serial Entrepreneurship (SaaS), M&A exits, Angel investing.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/christopher-balmaseda/" target="_blank">Christopher Balmaseda</a></td>
-                        <td>Valtec</td>
-                        <td>Co-Founder & COO; Cross-border Venture Building, Life science/biotech.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/startupmark/" target="_blank">Mark Birch</a></td>
-                        <td>TribeROI</td>
-                        <td>Founder; Developer Relations, Community Building, Cloud GTM (ex-AWS).</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/khooyinle/" target="_blank">Wilson (Yin-Le) Khoo</a></td>
-                        <td>co-pace (Aumovio)</td>
-                        <td>Director & Head of co-pace APAC (ex-China); Corporate VC, Mobility, Strategic Partnerships.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/luca-di-fiore-7165921/" target="_blank">Luca Di Fiore</a></td>
-                        <td>ADATA Technology (XPG)</td>
-                        <td>Head of Products, Xtreme Performance Gear; R&D/Product Mgmt, Hardware Eng.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/brucewbateman/" target="_blank">Bruce Bateman</a></td>
-                        <td>Cold Electric</td>
-                        <td>Founder/Principal; Deep-Tech Hardware, R&D Leadership, Energy/IoT.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://tw.linkedin.com/in/lelandlai" target="_blank">Leland Lai</a></td>
-                        <td>phireGEN Advisory Group</td>
-                        <td>Managing Director; Telecommunications, Mobile Tech, Go-to-Market.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/joshua-fu/" target="_blank">Josh Fu</a></td>
-                        <td>Akohub; Creative Ventures Lab</td>
-                        <td>Co-Founder & CRO (Akohub); Founder (Creative Ventures Lab); E-commerce, Growth Strategy.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.linkedin.com/in/ken-huang-12638166/" target="_blank">Ken Huang</a></td>
-                        <td>Mosaic Venture Lab</td>
-                        <td>Deal Sourcing, Due Diligence, Portfolio Management.</td>
-                    </tr>
+                    <!-- This section will be populated by the script -->
                 </tbody>
             </table>
         </div>
-        <!-- END MENTOR ROSTER TAB -->
 
         <!-- MENTOR PROFILE TAB (Dynamically Loaded) -->
         <div id="mentor_profile" class="tab-content">
@@ -1091,7 +1091,7 @@
             'morning': 'https://drive.google.com/drive/folders/1VB29C2kPdXRBb1INQMsqrdbb5e3TEsue?usp=sharing',
             'w1': 'https://drive.google.com/drive/folders/18eldMRSfrafNAnw3YYONgZ48W1MVIytf?usp=sharing',
             'w2': 'https://drive.google.com/drive/folders/1pVaKO3Vg-HmYn8Qb26iUZZvtf9f537rn?usp=sharing',
-            'w3': 'https://drive.google.com/drive/folders/1Ezq7aPxgSBvKD-BUQF8zrh7df8YKmOQz?usp=sharing',
+            'w3': 'https://drive.google.com/drive/folders/1Ezq7aPxgSBvKD-BUQF8zrh7df8YKm_Qz?usp=sharing',
             'w4': 'https://drive.google.com/drive/folders/1Joij6lDFEaKNxQ_nMDtGcU2u56qekWfr?usp=sharing',
         };
 
@@ -1177,7 +1177,6 @@
             }
         };
 
-        // Complete Mentor Roster Data for the dedicated tab
         const fullMentorRoster = [
             { name: 'Ashley Hsueh', company: 'Bain & Company', expertise: 'Management consultant; Technology & Cloud Services & Performance Improvement; M&A Strategy.', linkedin: 'https://www.linkedin.com/in/ashleyhsueh/' },
             { name: 'Deborah Magid', company: 'NextStar Venture Partner', expertise: 'Venture/Corporate Innovation Advisor; Corporate VC, Enterprise Software, Strategic Partnerships.', linkedin: 'https://www.linkedin.com/in/deborah-magid-b5318/' },
@@ -1195,8 +1194,6 @@
             { name: 'Ken Huang', company: 'Mosaic Venture Lab', expertise: 'Deal Sourcing, Due Diligence, Portfolio Management.', linkedin: 'https://www.linkedin.com/in/ken-huang-12638166/' }
         ];
 
-        // --- NEW DATA STRUCTURE FOR ASSIGNMENTS TAB ---
-        // This object maps a mentor's name to an array of startups they are assigned to.
         const mentorAssignments = {
             "Ashley Hsueh": [
                 { name: "Ailicorn Inc", website: "https://ailicorn.com/", track: "Challenger", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Adaptive Pitching (W3)" },
@@ -1444,10 +1441,7 @@
                 { name: "Nexera", website: "https://www.nexretail.com", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Meeting Skills and Negotiation (W4)", pm2: "Adaptive Pitching (W3)" },
                 { name: "KABOB CLOUD INC.", website: "kabob.io", track: "Deal Maker", am: "Sales Pitch Training & Assessment", pm1: "Adaptive Pitching (W3)", pm2: "Meeting Skills and Negotiation (W4)" }
             ]
-            // Note: Volker Heistermann is Keynote Only and not in the breakout assignments.
         };
-        // --- END NEW DATA STRUCTURE ---
-
 
         function populateMentorRosterTable() {
             const tbody = document.querySelector('#mentor_roster .mentor-table tbody');
@@ -1467,7 +1461,6 @@
             const resultsDiv = document.getElementById('assignments-results');
             resultsDiv.innerHTML = '';
 
-            // Find the mentor name in the assignments object
             const mentorName = Object.keys(mentorAssignments).find(key => key.toLowerCase() === input);
 
             if (mentorName) {
@@ -1490,19 +1483,13 @@
                 startups.forEach(startup => {
                     const trackClass = startup.track.toLowerCase().includes('deal') ? 'track-deal-maker' : 'track-challenger';
                     const amSession = startup.am === 'N/A' ? 'N/A (Co-Mentor)' : startup.am;
-                    
-                    // Highlight the session where the searched mentor is the primary lead (AM or PM)
-                    const isAmLead = startup.am === 'Sales Pitch Training & Assessment';
-                    const isPm1Lead = startup.pm1.includes(mentorName) || (startup.pm1.includes('Solo') && startup.pm1.includes('W4'));
-                    const isPm2Lead = startup.pm2.includes(mentorName) || (startup.pm2.includes('Solo') && startup.pm2.includes('W4'));
-
                     tableHTML += `
                         <tr>
                             <td><a href="${startup.website}" target="_blank" class="startup-name-link">${startup.name}</a></td>
                             <td><span class="${trackClass}">${startup.track}</span></td>
-                            <td class="${isAmLead ? 'session-am' : ''}">${amSession}</td>
-                            <td class="${isPm1Lead ? 'session-pm' : ''}">${startup.pm1}</td>
-                            <td class="${isPm2Lead ? 'session-pm' : ''}">${startup.pm2}</td>
+                            <td class="session-am">${amSession}</td>
+                            <td class="session-pm">${startup.pm1}</td>
+                            <td class="session-pm">${startup.pm2}</td>
                         </tr>
                     `;
                 });
@@ -1512,35 +1499,31 @@
             } else if (input.length > 0) {
                 resultsDiv.innerHTML = `<div class="no-results">No assignments found for "${input}". Please try your full name (e.g., Bruce Bateman).</div>`;
             } else {
-                resultsDiv.innerHTML = `<div class="no-results">Please type your mentor name above to view your personalized schedule and startup assignments.</div>`;
+                resultsDiv.innerHTML = `<div class="no-results" style="color: #007bb6; background: #e6f7ff;">Please type your full mentor name into the search box above to view your personalized schedule and startup assignments.</div>`;
             }
         }
-
 
         function getFolderLink(code) {
             return folderLinks[code.toLowerCase()] || '#';
         }
 
         function loadMentorProfile(mentorName, evt) {
+            evt.preventDefault();
             const data = mentorData[mentorName];
             if (!data) return;
 
-            // Update Header
             document.getElementById('profile_name').textContent = mentorName;
             document.getElementById('profile_company').textContent = data.company;
             document.getElementById('profile_expertise').textContent = data.expertise;
             document.getElementById('profile_track').textContent = data.track || 'Keynote Speaker';
 
-            // Update Tab Visibility
             openTab(evt, 'mentor_profile');
             document.getElementById('profile_tab_button').style.display = 'block';
             document.getElementById('profile_tab_button').innerHTML = `👤 <strong>${mentorName}</strong>`;
 
-            // Build Task Grid
             const grid = document.getElementById('profile_tasks_grid');
             grid.innerHTML = '';
 
-            // 1. Keynote/Interactive
             if (data.keynote || (data.morning_pod && data.morning_pod.focus.includes('Interactive Cold Outreach'))) {
                 const card = document.createElement('div');
                 card.className = 'task-card keynote';
@@ -1555,7 +1538,6 @@
                 grid.appendChild(card);
             }
             
-            // 2. Morning Pod (Only if not Keynote-only)
             if (data.morning_pod && data.track !== 'Keynote Only') {
                 const card = document.createElement('div');
                 card.className = 'task-card morning';
@@ -1573,7 +1555,6 @@
                 grid.appendChild(card);
             }
 
-            // 3. Afternoon Workshop
             if (data.afternoon) {
                 const card = document.createElement('div');
                 card.className = 'task-card afternoon';
@@ -1607,44 +1588,14 @@
             
             if (evt && evt.currentTarget) {
                 evt.currentTarget.classList.add("active");
-            } else if (tabName === 'mentor_profile') {
-                document.getElementById('profile_tab_button').classList.add('active');
-            } else if (tabName === 'agenda') {
-                const agendaBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('Main Agenda'));
-                if (agendaBtn) agendaBtn.classList.add('active');
-            } else if (tabName === 'mentor_roster') {
-                 const rosterBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('Full Mentor Roster'));
-                if (rosterBtn) rosterBtn.classList.add('active');
-            } else if (tabName === 'my_assignments') {
-                 const assignmentsBtn = Array.from(tabButtons).find(btn => btn.textContent.includes('My Assignments'));
-                if (assignmentsBtn) assignmentsBtn.classList.add('active');
-            }
-
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function searchMentor(event) {
-            const filter = event.target.value.toLowerCase().trim();
-            const mentorNames = document.querySelectorAll('.mentor-name');
-
-            mentorNames.forEach(a => {
-                const name = a.textContent.toLowerCase();
-                if (name.includes(filter)) {
-                    a.style.display = 'inline-block';
-                    if (filter.length > 0) {
-                         a.style.transform = 'scale(1.05)';
-                         a.style.boxShadow = '0 0 10px #667eea';
-                    } else {
-                        a.style.transform = '';
-                        a.style.boxShadow = '';
-                    }
-                } else {
-                    a.style.display = filter.length > 0 ? 'none' : 'inline-block';
-                    a.style.transform = '';
-                    a.style.boxShadow = '';
+            } else {
+                // Fallback for direct calls
+                const targetButton = Array.from(tabButtons).find(btn => btn.onclick.toString().includes(`'${tabName}'`));
+                if (targetButton) {
+                    targetButton.classList.add('active');
                 }
-            });
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.addEventListener('DOMContentLoaded', populateMentorRosterTable);
